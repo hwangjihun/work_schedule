@@ -1,0 +1,64 @@
+{
+    "members": [
+        {
+            "name": "황지훈",
+            "workTime": 1,
+            "signalSoldier": true
+        },
+        {
+            "name": "황지훈",
+            "workTime": 2,
+            "signalSoldier": true
+        },
+        {
+            "name": "김동수",
+            "workTime": 3,
+            "signalSoldier": true
+        }, 
+        {
+            "name": "김동수",
+            "workTime": 4,
+            "signalSoldier": true
+        },
+        {
+            "name": "최선웅",
+            "workTime": 5,
+            "signalSoldier": false
+        },
+        {
+            "name": "전성현",
+            "workTime": 6,
+            "signalSoldier": false
+        },
+        {
+            "name": "한철웅",
+            "workTime": 7,
+            "signalSoldier": true
+        },
+        {
+            "name": "민준식",
+            "workTime": 8,
+            "signalSoldier": false
+        },
+        {
+            "name": "최혁",
+            "workTime": 9,
+            "signalSoldier": false
+        },
+        {
+            "name": "김태언",
+            "workTime": 10,
+            "signalSoldier": false
+        },
+        {
+            "name": "심혁",
+            "workTime": 11,
+            "signalSoldier": true
+        },
+        {
+            "name": "허정현",
+            "workTime": 12,
+            "signalSoldier": true
+        }
+    ]
+}

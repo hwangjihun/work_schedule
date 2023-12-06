@@ -20,27 +20,52 @@ while len(next_kyohuan) < 2:
     else:
         next_kyohuan.append(random_soldier)
 
-# 4. Create a new file
-updated_schedule = {"members": []}
+for idx, member in enumerate(data["members"]): 
+    if (member["workTime"] <= 4):
+        del data["members"][idx]
+        
+print(data)
 
-for idx, soldier in enumerate(next_kyohuan):
-    updated_schedule["members"].append({
-                "name": soldier,
-                "workTime": idx + 1,
-                "signalSoldier": True
-            })
-    updated_schedule["members"].append({
-                "name": soldier,
-                "workTime": idx + 2,
-                "signalSoldier": True
-            })
+# updated_schedule = {"members": []}
+
+# for idx, soldier in enumerate(next_kyohuan):
+#     updated_schedule["members"].append({
+#         "name": soldier,
+#         "workTime": idx * 2 + 1,
+#         "signalSoldier": True
+#     })
+#     updated_schedule["members"].append({
+#         "name": soldier,
+#         "workTime":  idx * 2 + 2,
+#         "signalSoldier": True
+#     })
+#     for member in data["members"]:
+#         if (member[""])
     
-print(updated_schedule)
+# 5. Normal 근무자 (goes down by 5)
+
+# ** Exclude members in kyohuan and include previous kyohuan
+
+
+# for member in data["members"]:
+#     if (member["workTime"] > 4):
+#         if member["workTime"] + 5 > 12:
+#             updated_schedule["members"].append({
+#                 "name": member["name"],
+#                 "workTime": (member["workTime"] + 5 % 10) + 2,
+#                 "signalSoldier": member["signalSoldier"]
+#             })
+#         else:
+#             updated_schedule["members"].append({
+#                 "name": member["name"],
+#                 "workTime": member["workTime"] + 5,
+#                 "signalSoldier": member["signalSoldier"]
+#             })
 f.close()
 
 # Serializing json
-json_object = json.dumps(updated_schedule, indent=4, ensure_ascii=False)
- 
+# json_object = json.dumps(updated_schedule, indent=4, ensure_ascii=False)
+# json_object = json.dumps(data, indent=4, ensure_ascii=False)
 # Writing to sample.json
-with open("sample.json", "w") as outfile:
-    outfile.write(json_object)
+# with open("sample.json", "w") as outfile:
+#     outfile.write(json_object)

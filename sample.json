@@ -1,0 +1,24 @@
+{
+    "members": [
+        {
+            "name": "한철웅",
+            "workTime": 1,
+            "signalSoldier": true
+        },
+        {
+            "name": "한철웅",
+            "workTime": 2,
+            "signalSoldier": true
+        },
+        {
+            "name": "심혁",
+            "workTime": 2,
+            "signalSoldier": true
+        },
+        {
+            "name": "심혁",
+            "workTime": 3,
+            "signalSoldier": true
+        }
+    ]
+}

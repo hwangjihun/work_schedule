@@ -20,6 +20,27 @@ while len(next_kyohuan) < 2:
     else:
         next_kyohuan.append(random_soldier)
 
-print(next_kyohuan)
+# 4. Create a new file
+updated_schedule = {"members": []}
 
+for idx, soldier in enumerate(next_kyohuan):
+    updated_schedule["members"].append({
+                "name": soldier,
+                "workTime": idx + 1,
+                "signalSoldier": True
+            })
+    updated_schedule["members"].append({
+                "name": soldier,
+                "workTime": idx + 2,
+                "signalSoldier": True
+            })
+    
+print(updated_schedule)
 f.close()
+
+# Serializing json
+json_object = json.dumps(updated_schedule, indent=4, ensure_ascii=False)
+ 
+# Writing to sample.json
+with open("sample.json", "w") as outfile:
+    outfile.write(json_object)

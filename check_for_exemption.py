@@ -27,41 +27,25 @@ def rest_exemption(avail_workers):
     rest_file = open('rest.json')
     rest_data = json.load(rest_file)["rest"]
     overwrite_data = rest_data
-    # Check if there's no one left first on the 비번 list.
-    # If there is no one, then insert a new set based on 짬
+    updated_duty_queue = []
 
-    # avail_workers
-    # This parameter is the number of available unique workers on that day
-
-    if len(rest_data) == 0:
-        new_set = {
-           "rest": REST_LIST
-        }
-
-        new_set = json.dumps(new_set, indent=4, ensure_ascii=False)
-
-        with open("rest.json", "w") as outfile:
-            outfile.write(new_set)
-    else:
-        updated_duty_queue = []
-
-        # If the rest queue is smaller than the number of workers who are free, 
-        # then extend a new set of 비번
-        if (len(rest_data) < avail_workers - 10):
-            overwrite_data.extend(REST_LIST)
-        free_of_duty = []
-        for idx, worker in enumerate(overwrite_data):
-            if idx not in range(avail_workers-10):
-                updated_duty_queue.append(worker)
-            else:
-                free_of_duty.append(worker)
-        overwrite_data = {
-            "rest" : updated_duty_queue
-        }
-        overwrite_data = json.dumps(overwrite_data, indent=4, ensure_ascii=False)
-        with open("rest.json", "w") as outfile:
-            outfile.write(overwrite_data)
-        print(free_of_duty)
+    # If the rest queue is smaller than the number of workers who are free, 
+    # then extend a new set of 비번
+    if (len(rest_data) < avail_workers - 10):
+        overwrite_data.extend(REST_LIST)
+    free_of_duty = []
+    for idx, worker in enumerate(overwrite_data):
+        if idx not in range(avail_workers-10):
+            updated_duty_queue.append(worker)
+        else:
+            free_of_duty.append(worker)
+    overwrite_data = {
+        "rest" : updated_duty_queue
+    }
+    overwrite_data = json.dumps(overwrite_data, indent=4, ensure_ascii=False)
+    with open("rest.json", "w") as outfile:
+        outfile.write(overwrite_data)
+    print(f"Free of Duty: {free_of_duty}")
     return 
 
-rest_exemption(12)
+rest_exemption(13)

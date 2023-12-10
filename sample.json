@@ -1,22 +1,22 @@
 {
     "members": [
         {
-            "name": "변희원",
+            "name": "허정현",
             "workTime": 1,
             "signalSoldier": true
         },
         {
-            "name": "변희원",
+            "name": "허정현",
             "workTime": 2,
             "signalSoldier": true
         },
         {
-            "name": "심혁",
+            "name": "유창우",
             "workTime": 3,
             "signalSoldier": true
         },
         {
-            "name": "심혁",
+            "name": "유창우",
             "workTime": 4,
             "signalSoldier": true
         },
@@ -51,8 +51,8 @@
             "signalSoldier": false
         },
         {
-            "name": "허정현",
-            "workTime": 9,
+            "name": "심혁",
+            "workTime": 8,
             "signalSoldier": true
         }
     ]

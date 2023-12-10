@@ -1,5 +1,22 @@
 import json
 
+REST_LIST = [
+                {
+                    "name": "김동수"
+                },
+                {
+                    "name": "한철웅"
+                },
+                {
+                    "name": "황지훈"
+                },
+                {
+                    "name": "변희원"
+                },
+                {
+                    "name": "최진영"
+                }
+            ]
 def rest_exemption(avail_workers):
     # 비번 (for this to come true, there must not be anyone who does two shifts in a day)
     # aka there must be exactly 10 unique workers during weekdays and
@@ -18,23 +35,7 @@ def rest_exemption(avail_workers):
 
     if len(rest_data) == 0:
         new_set = {
-           "rest": [
-                {
-                    "name": "김동수"
-                },
-                {
-                    "name": "한철웅"
-                },
-                {
-                    "name": "황지훈"
-                },
-                {
-                    "name": "변희원"
-                },
-                {
-                    "name": "최진영"
-                }
-            ]
+           "rest": REST_LIST
         }
 
         new_set = json.dumps(new_set, indent=4, ensure_ascii=False)
@@ -47,25 +48,7 @@ def rest_exemption(avail_workers):
         # If the rest queue is smaller than the number of workers who are free, 
         # then extend a new set of 비번
         if (len(rest_data) < avail_workers - 10):
-            overwrite_data.extend(
-                [
-                    {
-                        "name": "김동수"
-                    },
-                    {
-                        "name": "한철웅"
-                    },
-                    {
-                        "name": "황지훈"
-                    },
-                    {
-                        "name": "변희원"
-                    },
-                    {
-                        "name": "최진영"
-                    }
-                ]   
-            )
+            overwrite_data.extend(REST_LIST)
         free_of_duty = []
         for idx, worker in enumerate(overwrite_data):
             if idx not in range(avail_workers-10):

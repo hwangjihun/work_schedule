@@ -11,12 +11,12 @@
             "signalSoldier": true
         },
         {
-            "name": "유창우",
+            "name": "한철웅",
             "workTime": 3,
             "signalSoldier": true
         },
         {
-            "name": "유창우",
+            "name": "한철웅",
             "workTime": 4,
             "signalSoldier": true
         },
@@ -28,21 +28,6 @@
         {
             "name": "전성현",
             "workTime": 11,
-            "signalSoldier": false
-        },
-        {
-            "name": "한철웅",
-            "workTime": 12,
-            "signalSoldier": true
-        },
-        {
-            "name": "민준식",
-            "workTime": 5,
-            "signalSoldier": false
-        },
-        {
-            "name": "최혁",
-            "workTime": 6,
             "signalSoldier": false
         },
         {

@@ -5,13 +5,13 @@ REST_LIST = [
                     "name": "김동수"
                 },
                 {
-                    "name": "한철웅"
+                    "name": "김태언"
                 },
                 {
                     "name": "황지훈"
                 },
                 {
-                    "name": "변희원"
+                    "name": "채현우"
                 },
                 {
                     "name": "최진영"
@@ -38,14 +38,21 @@ def rest_exemption(avail_workers):
         if idx not in range(avail_workers-10):
             updated_duty_queue.append(worker)
         else:
-            free_of_duty.append(worker)
+            free_of_duty.append(worker["name"])
     overwrite_data = {
         "rest" : updated_duty_queue
     }
     overwrite_data = json.dumps(overwrite_data, indent=4, ensure_ascii=False)
     with open("rest.json", "w") as outfile:
         outfile.write(overwrite_data)
-    print(f"Free of Duty: {free_of_duty}")
-    return 
 
-rest_exemption(13)
+    rest_file.close()
+    return free_of_duty
+
+def default_exemption():
+    # Default exemptions: 5대기, 휴가
+    # Add workers to exempted.json
+    workers_db = open('workers.json')
+    workers_data = json.load(workers_db)["workers"]
+    return [worker["name"] for worker in workers_data if worker["exempted"] == True]
+

@@ -61,11 +61,13 @@ updated_schedule = {"members": []}
 for idx, member in enumerate(next_kyohuan):
     updated_schedule["members"].append({
         "name": member,
-        "workTime": idx * 2 + 1
+        "workTime": idx * 2 + 1,
+        "signalSoldier": True
     })
     updated_schedule["members"].append({
         "name": member,
-        "workTime":  idx * 2 + 2
+        "workTime":  idx * 2 + 2,
+        "signalSoldier": True
     })
 # print(f"Final available workers: {final_available_workers}")
 
@@ -78,12 +80,14 @@ for member in prev_data["members"]:
             if member["workTime"] + 5 > 12:
                 updated_schedule["members"].append({
                     "name": member["name"],
-                    "workTime": ((member["workTime"] + 5) % 10) + 2
+                    "workTime": ((member["workTime"] + 5) % 10) + 2,
+                    "signalSoldier": member["signalSoldier"]
                 })
             else:
                 updated_schedule["members"].append({
                     "name": member["name"],
-                    "workTime": member["workTime"] + 5
+                    "workTime": member["workTime"] + 5,
+                    "signalSoldier": member["signalSoldier"]
                 })
     
 missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in updated_schedule["members"]])
@@ -96,7 +100,8 @@ random.shuffle(check_free_peeps)
 for mt, cfp in zip(missing_timings, check_free_peeps):
     updated_schedule["members"].append({
         "name": cfp,
-        "workTime": mt
+        "workTime": mt,
+        "signalSoldier": True
     })
 
 json_object = json.dumps(updated_schedule, indent=4, ensure_ascii=False)

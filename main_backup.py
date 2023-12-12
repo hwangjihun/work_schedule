@@ -1,7 +1,7 @@
 # WEEKDAY PROGRAM GENERATION (INCLUDES EDGE CASES)
 
 import json, random
-from exempted_workers import rest_exemption, default_exemption
+from misc_util import rest_exemption, default_exemption
 
 def array_diff(li1, li2):
     li_dif = [i for i in li1 + li2 if i not in li1 or i not in li2]

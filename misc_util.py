@@ -1,4 +1,4 @@
-import json
+import json, random
 
 REST_LIST = [
                 {
@@ -17,6 +17,7 @@ REST_LIST = [
                     "name": "최진영"
                 }
             ]
+
 def rest_exemption(avail_workers):
     # 비번 (for this to come true, there must not be anyone who does two shifts in a day)
     # aka there must be exactly 10 unique workers during weekdays and
@@ -56,3 +57,43 @@ def default_exemption():
     workers_data = json.load(workers_db)["workers"]
     return [worker["name"] for worker in workers_data if worker["exempted"] == True]
 
+def two_times(next_kyohuan, required_ppl_count):
+    # Two Times Point System
+    two_times_list = open('two_times.json')
+    two_times_list = json.load(two_times_list)
+    ttl_excluding_kyohuan = {}
+
+    # People going into two_times_duty on the new date
+    two_times_duty = []
+
+    # Exclude those who r in kyohuan
+    for worker, desc in two_times_list.items():
+        if (worker in next_kyohuan):
+            continue
+        else:
+            ttl_excluding_kyohuan[worker] = desc
+
+    # To make it fair, this will be a point system
+
+    for i in range(required_ppl_count):
+        least_point = min([worker["two_times_count"] for worker in ttl_excluding_kyohuan.values()])
+        
+        ttd_to_randomize = {}
+
+        for worker, desc in ttl_excluding_kyohuan.items():
+            if (desc["two_times_count"] == least_point):
+                ttd_to_randomize[worker] = desc
+        unlucky_boi = random.choice(list(ttd_to_randomize.keys()))
+       
+        two_times_duty.append(unlucky_boi)
+    #     ttl_excluding_kyohuan[unlucky_boi]["two_times_count"] += 1
+        two_times_list[unlucky_boi]["two_times_count"] += 1
+        # print(unlucky_boi)
+   
+
+    with open("two_times.json", "w") as outfile: 
+        json.dump(two_times_list, outfile, indent=4, ensure_ascii=False)
+
+    print(two_times_duty)
+    return two_times_duty
+two_times(["황지훈", "김태언"], 3)

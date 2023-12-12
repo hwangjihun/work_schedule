@@ -1,7 +1,7 @@
 # WEEKDAY PROGRAM GENERATION (INCLUDES EDGE CASES)
 
 import json, random
-from exempted_workers import rest_exemption, default_exemption
+from misc_util import rest_exemption, default_exemption
 
 def array_diff(li1, li2):
     li_dif = [i for i in li1 + li2 if i not in li1 or i not in li2]
@@ -14,10 +14,15 @@ prev_data = json.load(prev_db)
 workers_data = json.load(workers_db)
 
 # Today's available workers excluding 비번 (if there is) & default_exemption
+
+# available_workers --> ONLY EXCLUDES DEFAULT EXEMPTION
 available_workers = []
+
+# final_available_workers --> EXCLUDES BOTH 비번 & default_exemption
 final_available_workers = []
 
 exempted_default = default_exemption()
+
 for worker in workers_data["workers"]:
     if (worker["name"] in exempted_default):
         continue
@@ -67,7 +72,6 @@ for idx, member in enumerate(next_kyohuan):
         "name": member,
         "workTime":  idx * 2 + 2
     })
-# print(f"Final available workers: {final_available_workers}")
 
 final_available_names = [worker["name"] for worker in final_available_workers]
 for member in prev_data["members"]:
@@ -91,13 +95,22 @@ missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for
 check_free_peeps = array_diff([i["name"] for i in final_available_workers], [worker["name"] for worker in updated_schedule["members"]])
 
 # How to randomly allocate the missing timings??
-random.shuffle(check_free_peeps)
 
-for mt, cfp in zip(missing_timings, check_free_peeps):
-    updated_schedule["members"].append({
-        "name": cfp,
-        "workTime": mt
-    })
+print(check_free_peeps)
+print(missing_timings)
+
+# 2 탕 case
+if (len(check_free_peeps) < len(missing_timings)):
+    print("we are fucked")
+
+else:
+    random.shuffle(check_free_peeps)
+
+    for mt, cfp in zip(missing_timings, check_free_peeps):
+        updated_schedule["members"].append({
+            "name": cfp,
+            "workTime": mt
+        })
 
 json_object = json.dumps(updated_schedule, indent=4, ensure_ascii=False)
 with open("new_db.json", "w") as outfile:

@@ -11,7 +11,7 @@
             "id": 2,
             "name": "변희원",
             "ss": true,
-            "exempted": false,
+            "exempted": true,
             "exempted_reason": "na"
         },
         {
@@ -46,14 +46,14 @@
             "id": 7,
             "name": "심혁",
             "ss": true,
-            "exempted": false,
+            "exempted": true,
             "exempted_reason": "na"
         },
         {
             "id": 8,
             "name": "최선웅",
             "ss": false,
-            "exempted": false,
+            "exempted": true,
             "exempted_reason": "na"
         },
         {
@@ -74,14 +74,14 @@
             "id": 11,
             "name": "채현우",
             "ss": false,
-            "exempted": false,
+            "exempted": true,
             "exempted_reason": "na"
         },
         {
             "id": 12,
             "name": "전성현",
             "ss": false,
-            "exempted": false,
+            "exempted": true,
             "exempted_reason": "na"
         },
         {

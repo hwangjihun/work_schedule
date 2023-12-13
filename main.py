@@ -1,7 +1,7 @@
 # WEEKDAY PROGRAM GENERATION (INCLUDES EDGE CASES)
 
 import json, random
-from misc_util import rest_exemption, default_exemption
+from misc_util import rest_exemption, default_exemption, two_times
 
 def array_diff(li1, li2):
     li_dif = [i for i in li1 + li2 if i not in li1 or i not in li2]
@@ -96,12 +96,19 @@ check_free_peeps = array_diff([i["name"] for i in final_available_workers], [wor
 
 # How to randomly allocate the missing timings??
 
-print(check_free_peeps)
-print(missing_timings)
-
 # 2 탕 case
 if (len(check_free_peeps) < len(missing_timings)):
-    print("we are fucked")
+    print(check_free_peeps, missing_timings)
+    two_times_duty = two_times(next_kyohuan, len(missing_timings) - len(check_free_peeps))
+    
+    for peepo in check_free_peeps:
+        two_times_duty.append(peepo)
+  
+    for mt, cfp in zip(missing_timings, two_times_duty):
+        updated_schedule["members"].append({
+            "name": cfp,
+            "workTime": mt
+        })
 
 else:
     random.shuffle(check_free_peeps)

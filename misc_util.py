@@ -66,9 +66,9 @@ def two_times(next_kyohuan, required_ppl_count):
     # People going into two_times_duty on the new date
     two_times_duty = []
 
-    # Exclude those who r in kyohuan
+    # Exclude those who r in kyohuan & 열외
     for worker, desc in two_times_list.items():
-        if (worker in next_kyohuan):
+        if (worker in next_kyohuan or worker in default_exemption()):
             continue
         else:
             ttl_excluding_kyohuan[str(worker)] = {"two_times_count": int(desc["two_times_count"])}
@@ -93,9 +93,7 @@ def two_times(next_kyohuan, required_ppl_count):
         # Awarded one point for doing two time
         ttl_excluding_kyohuan[unlucky_boi]["two_times_count"] += 1
         two_times_list[unlucky_boi]["two_times_count"] += 1
-    print(ttl_excluding_kyohuan)
-    print(two_times_list)
+
     with open("two_times.json", "w") as outfile: 
         json.dump(two_times_list, outfile, indent=4, ensure_ascii=False)
     return two_times_duty
-two_times(["황지훈", "김태언"], 1)

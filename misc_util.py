@@ -71,29 +71,31 @@ def two_times(next_kyohuan, required_ppl_count):
         if (worker in next_kyohuan):
             continue
         else:
-            ttl_excluding_kyohuan[worker] = desc
+            ttl_excluding_kyohuan[str(worker)] = {"two_times_count": int(desc["two_times_count"])}
 
     # To make it fair, this will be a point system
+    
+    least_point = 0
 
     for i in range(required_ppl_count):
         least_point = min([worker["two_times_count"] for worker in ttl_excluding_kyohuan.values()])
-        
-        ttd_to_randomize = {}
+        # ttd stands for two times duty
 
+        # Two times duty to randomize (cuz there might be more than one person with the same points)
+        ttd_to_randomize = {}
+        
         for worker, desc in ttl_excluding_kyohuan.items():
             if (desc["two_times_count"] == least_point):
-                ttd_to_randomize[worker] = desc
+                ttd_to_randomize[worker] = desc 
+        
         unlucky_boi = random.choice(list(ttd_to_randomize.keys()))
-       
         two_times_duty.append(unlucky_boi)
-    #     ttl_excluding_kyohuan[unlucky_boi]["two_times_count"] += 1
+        # Awarded one point for doing two time
+        ttl_excluding_kyohuan[unlucky_boi]["two_times_count"] += 1
         two_times_list[unlucky_boi]["two_times_count"] += 1
-        # print(unlucky_boi)
-   
-
+    print(ttl_excluding_kyohuan)
+    print(two_times_list)
     with open("two_times.json", "w") as outfile: 
         json.dump(two_times_list, outfile, indent=4, ensure_ascii=False)
-
-    print(two_times_duty)
     return two_times_duty
-two_times(["황지훈", "김태언"], 3)
+two_times(["황지훈", "김태언"], 1)

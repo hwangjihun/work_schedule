@@ -1,17 +1,35 @@
 {
     "김동수": {
-        "two_times_count": 1
+        "two_times_count": 2
     },
     "채현우": {
-        "two_times_count": 0
-    },
-    "최진영": {
         "two_times_count": 1
     },
     "김태언": {
         "two_times_count": 1
     },
     "황지훈": {
+        "two_times_count": 1
+    },
+    "허정현": {
+        "two_times_count": 1
+    },
+    "유창우": {
+        "two_times_count": 1
+    },
+    "심혁": {
+        "two_times_count": 1
+    },
+    "전성현": {
+        "two_times_count": 1
+    },
+    "한철웅": {
+        "two_times_count": 1
+    },
+    "민준식": {
+        "two_times_count": 0
+    },
+    "최선웅": {
         "two_times_count": 0
     }
 }

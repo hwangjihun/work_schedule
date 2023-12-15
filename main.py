@@ -7,6 +7,9 @@ def array_diff(li1, li2):
     li_dif = [i for i in li1 + li2 if i not in li1 or i not in li2]
     return li_dif
 
+def sort_schedule(x): 
+    return int(x["workTime"])
+
 # Load Previous Day's 근무 & Current Workers DB
 prev_db = open('previous_db.json')
 workers_db = open('workers.json')
@@ -74,8 +77,31 @@ for idx, member in enumerate(next_kyohuan):
     })
 
 final_available_names = [worker["name"] for worker in final_available_workers]
+
+two_times_duty_prev = []
+
+# there might be people who are doing two-times the previous day, we can't just increase the timeid by 5, so we gotta exempt them
+two_times_dict = {}
+
 for member in prev_data["members"]:
-    if (member["name"] in previous_kyohuan or member["name"] in next_kyohuan or member["name"] not in final_available_names):
+    if (member["workTime"] < 5):
+        continue
+    else:
+        if (member["name"] in list(two_times_dict.keys())):
+            two_times_dict[member["name"]] += 1
+        else:
+            two_times_dict[member["name"]] = 1
+
+max_count_two_times = max(list(two_times_dict.values()))
+
+if (max_count_two_times > 1):
+    for member, count in two_times_dict.items(): 
+        if (count == max_count_two_times):
+            two_times_duty_prev.append(str(member))
+
+
+for member in prev_data["members"]:
+    if (member["name"] in previous_kyohuan or member["name"] in next_kyohuan or member["name"] not in final_available_names or member["name"] in two_times_duty_prev):
         continue
     else: 
         if member["workTime"] > 4:
@@ -119,6 +145,11 @@ else:
             "workTime": mt
         })
 
-json_object = json.dumps(updated_schedule, indent=4, ensure_ascii=False)
+sorted_schedule = sorted(updated_schedule["members"], key=sort_schedule)
+
+formatted_sorted_schedule = {
+    "members": sorted_schedule
+}
+json_object = json.dumps(formatted_sorted_schedule, indent=4, ensure_ascii=False)
 with open("new_db.json", "w") as outfile:
     outfile.write(json_object)

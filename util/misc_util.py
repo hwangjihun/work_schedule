@@ -1,4 +1,8 @@
 import json, random
+from os import listdir
+from os.path import isfile, join, splitext
+from datetime import datetime, timedelta
+import pytz
 
 REST_LIST = [
                 {
@@ -97,3 +101,23 @@ def two_times(next_kyohuan, required_ppl_count):
     with open("two_times.json", "w") as outfile: 
         json.dump(two_times_list, outfile, indent=4, ensure_ascii=False)
     return two_times_duty
+
+def automate_date():
+    # Search for latest_date 
+    my_path = './archive/json'
+    file_dates = [f for f in listdir(my_path) if isfile(join(my_path, f))]
+
+    if (len(file_dates) == 0):
+         # Set the timezone to KST
+        kst_timezone = pytz.timezone('Asia/Seoul')
+
+        # Get the current time in KST
+        current_time_kst = datetime.now(kst_timezone)
+        return current_time_kst.strftime('%Y-%m-%d')
+    
+    else:
+        file_dates = [splitext(date)[0] for date in file_dates]
+        file_dates = [datetime.strptime(date, '%Y-%m-%d') for date in file_dates]
+        next_day = max(file_dates) + timedelta(days=1)
+        return [max(file_dates).strftime('%Y-%m-%d'), next_day.strftime('%Y-%m-%d')]
+# automate_date()

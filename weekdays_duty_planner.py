@@ -1,7 +1,10 @@
 # WEEKDAY PROGRAM GENERATION (INCLUDES EDGE CASES)
 
 import json, random
-from misc_util import rest_exemption, default_exemption, two_times
+from util.misc_util import rest_exemption, default_exemption, two_times, automate_date
+from datetime import datetime
+
+
 
 def array_diff(li1, li2):
     li_dif = [i for i in li1 + li2 if i not in li1 or i not in li2]
@@ -11,7 +14,7 @@ def sort_schedule(x):
     return int(x["workTime"])
 
 # Load Previous Day's 근무 & Current Workers DB
-prev_db = open('previous_db.json')
+prev_db = open(f'./archive/json/{automate_date()[0]}.json')
 workers_db = open('workers.json')
 prev_data = json.load(prev_db)
 workers_data = json.load(workers_db)
@@ -96,7 +99,7 @@ max_count_two_times = max(list(two_times_dict.values()))
 
 if (max_count_two_times > 1):
     for member, count in two_times_dict.items(): 
-        if (count == max_count_two_times):
+        if (count != 1):
             two_times_duty_prev.append(str(member))
 
 
@@ -126,7 +129,7 @@ check_free_peeps = array_diff([i["name"] for i in final_available_workers], [wor
 if (len(check_free_peeps) < len(missing_timings)):
     print(check_free_peeps, missing_timings)
     two_times_duty = two_times(next_kyohuan, len(missing_timings) - len(check_free_peeps))
-    
+    random.shuffle(check_free_peeps)
     for peepo in check_free_peeps:
         two_times_duty.append(peepo)
   
@@ -151,5 +154,7 @@ formatted_sorted_schedule = {
     "members": sorted_schedule
 }
 json_object = json.dumps(formatted_sorted_schedule, indent=4, ensure_ascii=False)
-with open("new_db.json", "w") as outfile:
+
+
+with open(f"./archive/json/{automate_date()[1]}.json", "w") as outfile:
     outfile.write(json_object)

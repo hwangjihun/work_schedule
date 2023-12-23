@@ -278,15 +278,54 @@ def allocate_two_times(current_schedule, available_workers, next_kyohuan):
             ttd_filled_dt.append(RANDOM_DAYTIME)
             ttd_filled_nt.append(RANDOM_NIGHTTIME)
 
-    
     return current_schedule
 
-def fill_remaining(current_schedule, available_workers):
+def fill_remaining(current_schedule, available_workers, previous_schedule):
     missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in current_schedule["members"]])
     check_free_peeps = array_diff([i["name"] for i in available_workers], [worker["name"] for worker in current_schedule["members"]])
-    for mt, cfp in zip(missing_timings, check_free_peeps):
-        current_schedule["members"].append({
-            "name": cfp,
-            "workTime": mt
-        })
+    
+    # Let's see who did day and night yesterday 
+    ORIGINAL_DAYTIME = array_diff
+    DAYTIME = [timeid for timeid in missing_timings if timeid in range(1, 8)]
+  
+    NIGHTTIME = [timeid for timeid in missing_timings if timeid in range(8, 13)]
+    
+    ttd_filled_dt = []
+    ttd_filled_nt = []
+
+    for member in previous_schedule["members"]:
+        if (member["name"] in check_free_peeps):
+            if (member["workTime"] in NIGHTTIME):
+                while True:
+                    random_dt = random.choice(DAYTIME)
+                    if (random_dt not in ttd_filled_dt):
+                        break
+                current_schedule["members"].append({
+                    "name": member["name"],
+                    "workTime": random_dt
+                })
+                ttd_filled_dt.append(random_dt)
+            elif (member["workTime"] in DAYTIME):
+                while True:
+                    random_nt = random.choice(NIGHTTIME)
+                    if (random_nt not in ttd_filled_nt):
+                        break
+                random_nt = random.choice(NIGHTTIME)
+                current_schedule["members"].append({
+                    "name": member["name"],
+                    "workTime": random_nt
+                })
+                ttd_filled_nt.append(random_nt)
+    
+    # If there's still remaining people, randomly slot them in 
+    missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in current_schedule["members"]])
+    check_free_peeps = array_diff([i["name"] for i in available_workers], [worker["name"] for worker in current_schedule["members"]])
+    if (len(missing_timings) != 0):
+        random.shuffle(missing_timings)
+        random.shuffle(check_free_peeps)
+        for mt, cfp in zip(missing_timings, check_free_peeps):
+            current_schedule["members"].append({
+                "name": cfp,
+                "workTime": mt
+            })
     return current_schedule

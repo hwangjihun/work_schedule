@@ -31,7 +31,7 @@ if (datetime.strptime(current_date, "%Y-%m-%d").weekday() < 5):
     current_schedule = allocate_two_times(current_schedule, available_workers, next_kyohuan)
     
     # Filling in the remaining workers
-    current_schedule = fill_remaining(current_schedule, available_workers)
+    current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule)
     
     sorted_schedule = sorted(current_schedule["members"], key=sort_schedule)
 

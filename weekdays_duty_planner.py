@@ -1,7 +1,7 @@
 # WEEKDAY PROGRAM GENERATION (INCLUDES EDGE CASES)
 
 import json, random
-from util.misc_util import rest_exemption, default_exemption, two_times, automate_date
+from misc_util import rest_exemption, default_exemption, two_times, automate_date
 from datetime import datetime
 
 

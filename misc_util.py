@@ -247,21 +247,46 @@ def allocate_current_kyohuan(prev_data, available_workers):
     return [next_kyohuan, updated_schedule]
 
 def allocate_two_times(current_schedule, available_workers, next_kyohuan):
+    DAYTIME = [i for i in range(5, 8)]
+    NIGHTTIME = [i for i in range(8, 13)]
+    
     missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in current_schedule["members"]])
     check_free_peeps = array_diff([i["name"] for i in available_workers], [worker["name"] for worker in current_schedule["members"]])
-    
+  
     # Check if there is more 근무 OR if there is more free people
+    ttd_filled_dt = []
+    ttd_filled_nt = []
+
     if (len(check_free_peeps) < len(missing_timings)):
-        print(check_free_peeps, missing_timings)
         two_times_duty = two_times(next_kyohuan, len(missing_timings) - len(check_free_peeps))
-        random.shuffle(check_free_peeps)
-        for peepo in check_free_peeps:
-            two_times_duty.append(peepo)
-    
-        for mt, cfp in zip(missing_timings, two_times_duty):
+        for two_times_worker in two_times_duty:
+
+            while True:
+                RANDOM_DAYTIME = random.choice(DAYTIME)
+                RANDOM_NIGHTTIME = random.choice(NIGHTTIME)
+
+                if (RANDOM_DAYTIME not in ttd_filled_dt and RANDOM_NIGHTTIME not in ttd_filled_nt):
+                    break
             current_schedule["members"].append({
-                "name": cfp,
-                "workTime": mt
+                "name": two_times_worker,
+                "workTime": RANDOM_DAYTIME
             })
+            current_schedule["members"].append({
+                "name": two_times_worker,
+                "workTime": RANDOM_NIGHTTIME
+            })
+            ttd_filled_dt.append(RANDOM_DAYTIME)
+            ttd_filled_nt.append(RANDOM_NIGHTTIME)
+
     
+    return current_schedule
+
+def fill_remaining(current_schedule, available_workers):
+    missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in current_schedule["members"]])
+    check_free_peeps = array_diff([i["name"] for i in available_workers], [worker["name"] for worker in current_schedule["members"]])
+    for mt, cfp in zip(missing_timings, check_free_peeps):
+        current_schedule["members"].append({
+            "name": cfp,
+            "workTime": mt
+        })
     return current_schedule

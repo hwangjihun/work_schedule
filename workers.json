@@ -47,8 +47,8 @@
             "name": "심혁",
             "ss": true,
             "exempted_reason": "전역",
-            "exempted_start_date": "2023-12-22",
-            "exempted_end_date": "2023-12-31"
+            "exempted_start_date": "2023-12-20",
+            "exempted_end_date": "2023-12-23"
         },
         {
             "id": 8,
@@ -79,8 +79,8 @@
             "name": "채현우",
             "ss": false,
             "exempted_reason": "na",
-            "exempted_start_date": "na",
-            "exempted_end_date": "na"
+            "exempted_start_date": "2023-12-20",
+            "exempted_end_date": "2023-12-23"
         },
         {
             "id": 12,

@@ -191,7 +191,7 @@ def two_times(next_kyohuan, required_ppl_count):
         json.dump(two_times_list, outfile, indent=4, ensure_ascii=False)
     return two_times_duty
 
-def create_current_kyohuan(prev_data, available_workers):
+def allocate_current_kyohuan(prev_data, available_workers):
     # Attaining the next members for 오전 & 오후 교환
     # Logic: See previous day's shift and exempt them from today's shift
    
@@ -210,7 +210,6 @@ def create_current_kyohuan(prev_data, available_workers):
         else:
             next_kyohuan.append(random_soldier)
 
-    print(next_kyohuan)
     updated_schedule = {"members": []}
 
     # Ensure that the previous day's 막번 does not go into 오전 교환
@@ -245,4 +244,24 @@ def create_current_kyohuan(prev_data, available_workers):
                 "name": member,
                 "workTime":  idx * 2 + 2
             })
-    return updated_schedule
+    return [next_kyohuan, updated_schedule]
+
+def allocate_two_times(current_schedule, available_workers, next_kyohuan):
+    missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in current_schedule["members"]])
+    check_free_peeps = array_diff([i["name"] for i in available_workers], [worker["name"] for worker in current_schedule["members"]])
+    
+    # Check if there is more 근무 OR if there is more free people
+    if (len(check_free_peeps) < len(missing_timings)):
+        print(check_free_peeps, missing_timings)
+        two_times_duty = two_times(next_kyohuan, len(missing_timings) - len(check_free_peeps))
+        random.shuffle(check_free_peeps)
+        for peepo in check_free_peeps:
+            two_times_duty.append(peepo)
+    
+        for mt, cfp in zip(missing_timings, two_times_duty):
+            current_schedule["members"].append({
+                "name": cfp,
+                "workTime": mt
+            })
+    
+    return current_schedule

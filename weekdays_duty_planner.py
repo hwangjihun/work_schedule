@@ -140,10 +140,10 @@ if (len(check_free_peeps) < len(missing_timings)):
         })
 
 else:
-    random.shuffle(check_free_peeps)
+    random.shuffle(check_fee_peeps)
 
     for mt, cfp in zip(missing_timings, check_free_peeps):
-        updated_schedule["members"].append({
+        updated_schedule["mermbers"].append({
             "name": cfp,
             "workTime": mt
         })

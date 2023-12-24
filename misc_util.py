@@ -320,28 +320,24 @@ def fill_remaining(current_schedule, available_workers, previous_schedule, previ
         else:
             filtered_previous_schedule.append(member)
     for member in filtered_previous_schedule:
-        if (member["name"] in check_free_peeps ):
-            if (member["name"] in previous_kyohuan or member["name"] in two_times_chosen_workers):
+        # Check if yesterday's 근무 WAS NIGHT
+        if (member["workTime"] in range(8, 13)):
+            random_dt = rng_day.generate_random_number()
+            if (random_dt is None):
                 continue
-            else:
-                # Check if yesterday's 근무 WAS NIGHT
-                if (member["workTime"] in range(8, 13)):
-                    random_dt = rng_day.generate_random_number()
-                    if (random_dt is None):
-                        continue
-                    current_schedule["members"].append({
-                        "name": member["name"],
-                        "workTime": random_dt
-                    })
-                # Check if yesterday's 근무 WAS DAY
-                elif (member["workTime"] in range(1, 8)):
-                    random_nt = rng_night.generate_random_number()
-                    if (random_nt is None):
-                        continue
-                    current_schedule["members"].append({
-                        "name": member["name"],
-                        "workTime": random_nt
-                    })
+            current_schedule["members"].append({
+                "name": member["name"],
+                "workTime": random_dt
+            })
+        # Check if yesterday's 근무 WAS DAY
+        elif (member["workTime"] in range(1, 8)):
+            random_nt = rng_night.generate_random_number()
+            if (random_nt is None):
+                continue
+            current_schedule["members"].append({
+                "name": member["name"],
+                "workTime": random_nt
+            })
     # If there's still remaining people, randomly slot them in 
     missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in current_schedule["members"]])
     check_free_peeps = array_diff([i["name"] for i in available_workers], [worker["name"] for worker in current_schedule["members"]])

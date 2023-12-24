@@ -28,10 +28,10 @@ if (datetime.strptime(current_date, "%Y-%m-%d").weekday() < 5):
     next_kyohuan, current_schedule, previous_kyohuan = allocate_current_kyohuan(prev_schedule, available_workers)
  
     # Allocate 2 탕 근무자 (if there is a need)
-    current_schedule, two_times_chosen_workers = allocate_two_times(current_schedule, available_workers, next_kyohuan)
+    current_schedule = allocate_two_times(current_schedule, available_workers, next_kyohuan)
     
     # Filling in the remaining workers
-    current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan, two_times_chosen_workers)
+    current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan)
 
     sorted_schedule = sorted(current_schedule["members"], key=sort_schedule)
 
@@ -39,7 +39,6 @@ if (datetime.strptime(current_date, "%Y-%m-%d").weekday() < 5):
         "members": sorted_schedule
     }
 
-    print(formatted_sorted_schedule)
     json_object = json.dumps(formatted_sorted_schedule, indent=4, ensure_ascii=False)
 
 

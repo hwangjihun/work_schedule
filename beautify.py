@@ -1,6 +1,6 @@
 import json
 import csv
-
+#THings to fix (somehow 2 탕 IS GOING STRAIGHT ON consecutively)
 time_dict = {
     1: '08:00 ~ 10:00',
     2: '10:00 ~ 12:00',

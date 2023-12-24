@@ -281,9 +281,10 @@ def allocate_two_times(current_schedule, available_workers, next_kyohuan):
             })
             ttd_filled_dt.append(RANDOM_DAYTIME)
             ttd_filled_nt.append(RANDOM_NIGHTTIME)
-    return [current_schedule, two_times_chosen_workers]
 
-def fill_remaining(current_schedule, available_workers, previous_schedule, previous_kyohuan, two_times_chosen_workers):
+    return current_schedule 
+
+def fill_remaining(current_schedule, available_workers, previous_schedule, previous_kyohuan):
     missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in current_schedule["members"]])
     check_free_peeps = array_diff([i["name"] for i in available_workers], [worker["name"] for worker in current_schedule["members"]])
     
@@ -293,8 +294,32 @@ def fill_remaining(current_schedule, available_workers, previous_schedule, previ
     rng_day = RandomNumberGenerator(choices=DAYTIME)
     rng_night = RandomNumberGenerator(choices=NIGHTTIME)
     
-    # SOlving the collision of 2 times 근부 yesterday
+    # FIlters out previous kyohuan and two times 근무 from yesterday
+    two_times_dict = {}
+    two_times_duty_prev = []
     for member in previous_schedule["members"]:
+        if (member["workTime"] < 5):
+            continue
+        else:
+            if (member["name"] in list(two_times_dict.keys())):
+                two_times_dict[member["name"]] += 1
+            else:
+                two_times_dict[member["name"]] = 1
+    max_count_two_times = max(list(two_times_dict.values()))
+
+    if (max_count_two_times > 1):
+        for member, count in two_times_dict.items(): 
+            if (count != 1):
+                two_times_duty_prev.append(str(member))    
+
+    filtered_previous_schedule = []
+    for member in previous_schedule["members"]:
+        if (member["name"] in check_free_peeps):
+            if (member["name"] in previous_kyohuan or member["name"] in two_times_duty_prev):
+                continue
+        else:
+            filtered_previous_schedule.append(member)
+    for member in filtered_previous_schedule:
         if (member["name"] in check_free_peeps ):
             if (member["name"] in previous_kyohuan or member["name"] in two_times_chosen_workers):
                 continue

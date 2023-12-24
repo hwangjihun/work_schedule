@@ -317,8 +317,8 @@ def fill_remaining(current_schedule, available_workers, previous_schedule, previ
         if (member["name"] in check_free_peeps):
             if (member["name"] in previous_kyohuan or member["name"] in two_times_duty_prev):
                 continue
-        else:
-            filtered_previous_schedule.append(member)
+            else:
+                filtered_previous_schedule.append(member)
     for member in filtered_previous_schedule:
         # Check if yesterday's 근무 WAS NIGHT
         if (member["workTime"] in range(8, 13)):

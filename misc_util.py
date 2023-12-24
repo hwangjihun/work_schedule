@@ -296,7 +296,7 @@ def fill_remaining(current_schedule, available_workers, previous_schedule, previ
     # SOlving the collision of 2 times 근부 yesterday
     for member in previous_schedule["members"]:
         if (member["name"] in check_free_peeps ):
-            if (member["name"] in previous_kyohuan and member["name"] in two_times_chosen_workers):
+            if (member["name"] in previous_kyohuan or member["name"] in two_times_chosen_workers):
                 continue
             else:
                 # Check if yesterday's 근무 WAS NIGHT

@@ -258,6 +258,8 @@ def allocate_two_times(current_schedule, available_workers, next_kyohuan):
     ttd_filled_dt = []
     ttd_filled_nt = []
 
+    two_times_chosen_workers = []
+
     if (len(check_free_peeps) < len(missing_timings)):
         two_times_duty = two_times(next_kyohuan, len(missing_timings) - len(check_free_peeps))
         for two_times_worker in two_times_duty:
@@ -268,6 +270,7 @@ def allocate_two_times(current_schedule, available_workers, next_kyohuan):
 
                 if (RANDOM_DAYTIME not in ttd_filled_dt and RANDOM_NIGHTTIME not in ttd_filled_nt):
                     break
+            two_times_chosen_workers.append(two_times_worker)
             current_schedule["members"].append({
                 "name": two_times_worker,
                 "workTime": RANDOM_DAYTIME
@@ -278,9 +281,9 @@ def allocate_two_times(current_schedule, available_workers, next_kyohuan):
             })
             ttd_filled_dt.append(RANDOM_DAYTIME)
             ttd_filled_nt.append(RANDOM_NIGHTTIME)
-    return current_schedule
+    return [current_schedule, two_times_chosen_workers]
 
-def fill_remaining(current_schedule, available_workers, previous_schedule, previous_kyohuan):
+def fill_remaining(current_schedule, available_workers, previous_schedule, previous_kyohuan, two_times_chosen_workers):
     missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in current_schedule["members"]])
     check_free_peeps = array_diff([i["name"] for i in available_workers], [worker["name"] for worker in current_schedule["members"]])
     
@@ -292,8 +295,8 @@ def fill_remaining(current_schedule, available_workers, previous_schedule, previ
     
     # SOlving the collision of 2 times 근부 yesterday
     for member in previous_schedule["members"]:
-        if (member["name"] in check_free_peeps):
-            if (member["name"] in previous_kyohuan):
+        if (member["name"] in check_free_peeps ):
+            if (member["name"] in previous_kyohuan and member["name"] in two_times_chosen_workers):
                 continue
             else:
                 # Check if yesterday's 근무 WAS NIGHT

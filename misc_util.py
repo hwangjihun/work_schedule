@@ -3,6 +3,7 @@ from os import listdir
 from os.path import isfile, join, splitext
 from datetime import datetime, timedelta
 import pytz
+from random_generator import RandomNumberGenerator
 
 def array_diff(li1, li2):
     li_dif = [i for i in li1 + li2 if i not in li1 or i not in li2]
@@ -244,7 +245,7 @@ def allocate_current_kyohuan(prev_data, available_workers):
                 "name": member,
                 "workTime":  idx * 2 + 2
             })
-    return [next_kyohuan, updated_schedule]
+    return [next_kyohuan, updated_schedule, previous_kyohuan]
 
 def allocate_two_times(current_schedule, available_workers, next_kyohuan):
     DAYTIME = [i for i in range(5, 8)]
@@ -277,46 +278,42 @@ def allocate_two_times(current_schedule, available_workers, next_kyohuan):
             })
             ttd_filled_dt.append(RANDOM_DAYTIME)
             ttd_filled_nt.append(RANDOM_NIGHTTIME)
-
     return current_schedule
 
-def fill_remaining(current_schedule, available_workers, previous_schedule):
+def fill_remaining(current_schedule, available_workers, previous_schedule, previous_kyohuan):
     missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in current_schedule["members"]])
     check_free_peeps = array_diff([i["name"] for i in available_workers], [worker["name"] for worker in current_schedule["members"]])
     
-    # Let's see who did day and night yesterday 
-    ORIGINAL_DAYTIME = array_diff
     DAYTIME = [timeid for timeid in missing_timings if timeid in range(1, 8)]
-  
     NIGHTTIME = [timeid for timeid in missing_timings if timeid in range(8, 13)]
     
-    ttd_filled_dt = []
-    ttd_filled_nt = []
-
+    rng_day = RandomNumberGenerator(choices=DAYTIME)
+    rng_night = RandomNumberGenerator(choices=NIGHTTIME)
+    
+    # SOlving the collision of 2 times 근부 yesterday
     for member in previous_schedule["members"]:
         if (member["name"] in check_free_peeps):
-            if (member["workTime"] in NIGHTTIME):
-                while True:
-                    random_dt = random.choice(DAYTIME)
-                    if (random_dt not in ttd_filled_dt):
-                        break
-                current_schedule["members"].append({
-                    "name": member["name"],
-                    "workTime": random_dt
-                })
-                ttd_filled_dt.append(random_dt)
-            elif (member["workTime"] in DAYTIME):
-                while True:
-                    random_nt = random.choice(NIGHTTIME)
-                    if (random_nt not in ttd_filled_nt):
-                        break
-                random_nt = random.choice(NIGHTTIME)
-                current_schedule["members"].append({
-                    "name": member["name"],
-                    "workTime": random_nt
-                })
-                ttd_filled_nt.append(random_nt)
-    
+            if (member["name"] in previous_kyohuan):
+                continue
+            else:
+                # Check if yesterday's 근무 WAS NIGHT
+                if (member["workTime"] in range(8, 13)):
+                    random_dt = rng_day.generate_random_number()
+                    if (random_dt is None):
+                        continue
+                    current_schedule["members"].append({
+                        "name": member["name"],
+                        "workTime": random_dt
+                    })
+                # Check if yesterday's 근무 WAS DAY
+                elif (member["workTime"] in range(1, 8)):
+                    random_nt = rng_night.generate_random_number()
+                    if (random_nt is None):
+                        continue
+                    current_schedule["members"].append({
+                        "name": member["name"],
+                        "workTime": random_nt
+                    })
     # If there's still remaining people, randomly slot them in 
     missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in current_schedule["members"]])
     check_free_peeps = array_diff([i["name"] for i in available_workers], [worker["name"] for worker in current_schedule["members"]])

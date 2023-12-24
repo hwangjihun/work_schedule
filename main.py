@@ -25,19 +25,21 @@ current_schedule = {}
 # Weekday
 if (datetime.strptime(current_date, "%Y-%m-%d").weekday() < 5):
     # Allocate Current Kyohuan
-    next_kyohuan, current_schedule = allocate_current_kyohuan(prev_schedule, available_workers)
+    next_kyohuan, current_schedule, previous_kyohuan = allocate_current_kyohuan(prev_schedule, available_workers)
  
     # Allocate 2 탕 근무자 (if there is a need)
     current_schedule = allocate_two_times(current_schedule, available_workers, next_kyohuan)
     
     # Filling in the remaining workers
-    current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule)
-    
+    current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan)
+
     sorted_schedule = sorted(current_schedule["members"], key=sort_schedule)
 
     formatted_sorted_schedule = {
         "members": sorted_schedule
     }
+
+    print(formatted_sorted_schedule)
     json_object = json.dumps(formatted_sorted_schedule, indent=4, ensure_ascii=False)
 
 

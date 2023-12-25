@@ -171,7 +171,7 @@ def two_times(next_kyohuan, required_ppl_count):
     
     least_point = 0
 
-    for i in range(required_ppl_count):
+    while len(two_times_duty) != required_ppl_count:
         least_point = min([worker["two_times_count"] for worker in ttl_excluding_kyohuan.values()])
         # ttd stands for two times duty
 
@@ -183,14 +183,39 @@ def two_times(next_kyohuan, required_ppl_count):
                 ttd_to_randomize[worker] = desc 
         
         unlucky_boi = random.choice(list(ttd_to_randomize.keys()))
+        # Collision problem
+        if (unlucky_boi in two_times_duty):
+            continue
+
         two_times_duty.append(unlucky_boi)
+        
         # Awarded one point for doing two time
         ttl_excluding_kyohuan[unlucky_boi]["two_times_count"] += 1
         two_times_list[unlucky_boi]["two_times_count"] += 1
 
+    # for i in range(required_ppl_count):
+    #     least_point = min([worker["two_times_count"] for worker in ttl_excluding_kyohuan.values()])
+    #     # ttd stands for two times duty
+
+    #     # Two times duty to randomize (cuz there might be more than one person with the same points)
+    #     ttd_to_randomize = {}
+        
+    #     for worker, desc in ttl_excluding_kyohuan.items():
+    #         if (desc["two_times_count"] == least_point):
+    #             ttd_to_randomize[worker] = desc 
+        
+    #     unlucky_boi = random.choice(list(ttd_to_randomize.keys()))
+    #     two_times_duty.append(unlucky_boi)
+    #     # Awarded one point for doing two time
+    #     ttl_excluding_kyohuan[unlucky_boi]["two_times_count"] += 1
+    #     two_times_list[unlucky_boi]["two_times_count"] += 1
+
+  
+
     with open("two_times.json", "w") as outfile: 
         json.dump(two_times_list, outfile, indent=4, ensure_ascii=False)
     return two_times_duty
+
 
 def allocate_current_kyohuan(prev_data, available_workers):
     # Attaining the next members for 오전 & 오후 교환
@@ -247,10 +272,15 @@ def allocate_current_kyohuan(prev_data, available_workers):
             })
     return [next_kyohuan, updated_schedule, previous_kyohuan]
 
-def allocate_two_times(current_schedule, available_workers, next_kyohuan):
-    DAYTIME = [i for i in range(5, 8)]
-    NIGHTTIME = [i for i in range(8, 13)]
-    
+def allocate_two_times(current_schedule, available_workers, next_kyohuan, weekends_):
+    DAYTIME = []
+    NIGHTTIME = []
+    if (weekends_ is True):
+        DAYTIME = [i for i in range(1, 8)]
+        NIGHTTIME = [i for i in range(8, 13)]
+    else:
+        DAYTIME = [i for i in range(5, 8)]
+        NIGHTTIME = [i for i in range(8, 13)]
     missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in current_schedule["members"]])
     check_free_peeps = array_diff([i["name"] for i in available_workers], [worker["name"] for worker in current_schedule["members"]])
   
@@ -281,7 +311,7 @@ def allocate_two_times(current_schedule, available_workers, next_kyohuan):
             })
             ttd_filled_dt.append(RANDOM_DAYTIME)
             ttd_filled_nt.append(RANDOM_NIGHTTIME)
-
+    print(current_schedule)
     return current_schedule 
 
 def fill_remaining(current_schedule, available_workers, previous_schedule, previous_kyohuan):

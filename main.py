@@ -24,19 +24,27 @@ current_schedule = {"members": []}
 
 # Weekday
 if (datetime.strptime(current_date, "%Y-%m-%d").weekday() < 5):
-    # Allocate Current Kyohuan
-    next_kyohuan, current_schedule, previous_kyohuan = allocate_current_kyohuan(prev_schedule, available_workers)
- 
-    # Allocate 2 탕 근무자 (if there is a need)
-    current_schedule = allocate_two_times(current_schedule, available_workers, next_kyohuan, False)
+    if (datetime.strptime(current_date, "%Y-%m-%d").weekday() == 0):
+        # Allocate Current Kyohuan
+        next_kyohuan, current_schedule, previous_kyohuan = allocate_current_kyohuan(prev_schedule, available_workers)
     
-    # Filling in the remaining workers
-    current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan)
+        # Allocate 2 탕 근무자 (if there is a need)
+        current_schedule = allocate_two_times(current_schedule, available_workers, next_kyohuan, False)
+        
+        # Filling in the remaining workers
+        current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan)
+    else:
+        # Allocate Current Kyohuan
+        next_kyohuan, current_schedule, previous_kyohuan = allocate_current_kyohuan(prev_schedule, available_workers)
+    
+        # Allocate 2 탕 근무자 (if there is a need)
+        current_schedule = allocate_two_times(current_schedule, available_workers, next_kyohuan, False)
+        
+        # Filling in the remaining workers
+        current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan)
 
 
 # Saturday is special because we have to exclude friday's kyohuan
-# 휴무 IS INCLUDED HERE IF it is before a weekday
-
 elif (datetime.strptime(current_date, "%Y-%m-%d").weekday() == 5):
     previous_kyohuan = list(set([i["name"] for i in prev_schedule["members"] if i["workTime"] < 5]))
      # Allocate 2 탕 근무자 (if there is a need)

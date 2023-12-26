@@ -16,12 +16,12 @@ time_dict = {
     12: '06:00 ~ 08:00'
 }
 
-with open('./archive/json/2023-12-23.json') as json_file:
+with open('./archive/json/2024-01-13.json') as json_file:
     data = json.load(json_file)
     print(data)
 workers_data = data['members']
  
-data_file = open('./archive/csv/2023-12-23.csv', 'w')
+data_file = open('./archive/csv/2024-01-13.csv', 'w')
 csv_writer = csv.writer(data_file)
  
 # Counter variable used for writing 

@@ -81,6 +81,39 @@ def default_exemption():
                 exempted_workers.append(worker["name"])
 
     return exempted_workers
+def test_find_available_workers(current_schedule_date):
+    workers_db = open('workers.json')
+    workers_data = json.load(workers_db)
+
+    # Find all the available workers on the day
+
+    # available_workers --> ONLY EXCLUDES DEFAULT EXEMPTION ('휴가, etc')
+    available_workers = []
+
+    # final_available_workers --> EXCLUDES BOTH 비번 & default_exemption
+    final_available_workers = []
+
+    exempted_workers = default_exemption()
+    
+    for worker in workers_data["workers"]:
+        if (worker["name"] in exempted_workers):
+            continue
+        else:
+            available_workers.append(worker)
+
+    # Weekday 비번 Criteria
+    if (len(available_workers) > 10 and datetime.strptime(current_schedule_date, "%Y-%m-%d").weekday() < 5):
+        exempted_workers = rest_exemption(len(available_workers))
+        for worker in available_workers:
+            if (worker["name"] in exempted_workers):
+                continue
+            else:
+                final_available_workers.append(worker)  
+    else:
+        final_available_workers = available_workers
+
+    workers_db.close()
+    return final_available_workers
 
 def find_available_workers():
     workers_db = open('workers.json')
@@ -218,23 +251,33 @@ def two_times(next_kyohuan, required_ppl_count):
 
 
 def allocate_current_kyohuan(prev_data, available_workers):
-    # Attaining the next members for 오전 & 오후 교환
-    # Logic: See previous day's shift and exempt them from today's shift
-   
-    # 1. Get previous day workers who did 오전 & 오후 교환
-    previous_kyohuan = list(set([i["name"] for i in prev_data["members"] if i["workTime"] < 5]))
-    
-    # 2. Get all current signal soldiers excluding yesterday's 오전 & 오후 교환
-    current_signal_soldiers = list([i["name"] for i in available_workers if i["ss"] is True and i["name"] not in previous_kyohuan])
-   
-    # 3. Randomize people to 오전 & 오후 교환
     next_kyohuan = []
-    while len(next_kyohuan) < 2:
-        random_soldier = random.choice(current_signal_soldiers)
-        if random_soldier in next_kyohuan:
-            continue
-        else:
-            next_kyohuan.append(random_soldier)
+    previous_kyohuan = []
+    if (len(prev_data)) == 0:
+        current_signal_soldiers = list([i["name"] for i in available_workers if i["ss"] is True])
+        while len(next_kyohuan) < 2:
+            random_soldier = random.choice(current_signal_soldiers)
+            if random_soldier in next_kyohuan:
+                continue
+            else:
+                next_kyohuan.append(random_soldier)
+    else:
+        # Attaining the next members for 오전 & 오후 교환
+        # Logic: See previous day's shift and exempt them from today's shift
+        
+        # 1. Get previous day workers who did 오전 & 오후 교환
+        previous_kyohuan = list(set([i["name"] for i in prev_data["members"] if i["workTime"] < 5]))
+        
+        # 2. Get all current signal soldiers excluding yesterday's 오전 & 오후 교환
+        current_signal_soldiers = list([i["name"] for i in available_workers if i["ss"] is True and i["name"] not in previous_kyohuan])
+    
+        # 3. Randomize people to 오전 & 오후 교환
+        while len(next_kyohuan) < 2:
+            random_soldier = random.choice(current_signal_soldiers)
+            if random_soldier in next_kyohuan:
+                continue
+            else:
+                next_kyohuan.append(random_soldier)
 
     updated_schedule = {"members": []}
 

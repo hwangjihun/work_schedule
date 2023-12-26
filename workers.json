@@ -43,20 +43,12 @@
             "exempted_end_date": "na"
         },
         {
-            "id": 7,
-            "name": "심혁",
-            "ss": true,
-            "exempted_reason": "전역",
-            "exempted_start_date": "2023-12-20",
-            "exempted_end_date": "2023-12-23"
-        },
-        {
             "id": 8,
             "name": "최선웅",
             "ss": false,
-            "exempted_reason": "na",
-            "exempted_start_date": "na",
-            "exempted_end_date": "na"
+            "exempted_reason": "5대기",
+            "exempted_start_date": "2024-01-01",
+            "exempted_end_date": "2024-01-08"
         },
         {
             "id": 9,
@@ -78,9 +70,9 @@
             "id": 11,
             "name": "채현우",
             "ss": false,
-            "exempted_reason": "na",
-            "exempted_start_date": "2023-12-20",
-            "exempted_end_date": "2023-12-23"
+            "exempted_reason": "휴가",
+            "exempted_start_date": "2024-01-13",
+            "exempted_end_date": "2024-01-18"
         },
         {
             "id": 12,

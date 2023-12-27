@@ -16,28 +16,31 @@ time_dict = {
     12: '06:00 ~ 08:00'
 }
 
-with open('./archive/json/2024-01-02.json') as json_file:
-    data = json.load(json_file)
-    print(data)
-workers_data = data['members']
- 
-data_file = open('./archive/csv/2024-01-02.csv', 'w')
-csv_writer = csv.writer(data_file)
- 
-# Counter variable used for writing 
-# headers to the CSV file
-count = 0
- 
-for worker in workers_data:
-    if count == 0:
-        # Writing headers of CSV file
-        header = list(worker.keys())
-        csv_writer.writerow([header[1], header[0]])
-        count += 1
- 
-    # Writing data of CSV file
-    updated_worker = list(worker.values())
+for i in range(1, 14):
 
-    csv_writer.writerow([time_dict[updated_worker[1]], updated_worker[0]])
- 
-data_file.close()
+    if (i < 10):
+        i = "0" + str(i)
+    with open(f'./archive/json/2024-01-{i}.json') as json_file:
+        data = json.load(json_file)
+        print(data)
+    workers_data = data['members']
+    
+    data_file = open(f'./archive/csv/2024-01-{i}.csv', 'w')
+    csv_writer = csv.writer(data_file)
+    
+    # Counter variable used for writing 
+    # headers to the CSV file
+    count = 0
+    
+    for worker in workers_data:
+        if count == 0:
+            # Writing headers of CSV file
+            csv_writer.writerow(["근무시간", "이름"])
+            count += 1
+    
+        # Writing data of CSV file
+        updated_worker = list(worker.values())
+
+        csv_writer.writerow([time_dict[updated_worker[1]], updated_worker[0]])
+    
+    data_file.close()

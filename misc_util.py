@@ -33,32 +33,12 @@ def find_previous_schedule():
     schedule_dates = [splitext(date)[0] for date in schedule_dates]
     return max([datetime.strptime(date, '%Y-%m-%d') for date in schedule_dates]).strftime('%Y-%m-%d')
 
-def set_current_schedule_date():
-    # Search for latest_date 
-    my_path = './archive/json'
-    file_dates = [f for f in listdir(my_path) if isfile(join(my_path, f))]
-
-    if (len(file_dates) == 0):
-         # Set the timezone to KST
-        kst_timezone = pytz.timezone('Asia/Seoul')
-
-        # Get the current time in KST
-        current_time_kst = datetime.now(kst_timezone)
-        return current_time_kst.strftime('%Y-%m-%d')
-    
-    else:
-        file_dates = [splitext(date)[0] for date in file_dates]
-        file_dates = [datetime.strptime(date, '%Y-%m-%d') for date in file_dates]
-        next_day = max(file_dates) + timedelta(days=1)
-        return next_day.strftime('%Y-%m-%d')
-
-def default_exemption():
+def default_exemption(current_schedule_date):
     # Exemptions: 5대기, 휴가, 훈련, etc...
     # Based on 근무 DATE, check the people who are exempted from duty to the reasons above
     exempted_workers = []
     
     workers = json.load(open('workers.json'))["workers"]
-    current_schedule_date = set_current_schedule_date()
     target_date = datetime.strptime(current_schedule_date, "%Y-%m-%d")
 
     # Specify the UTC timezone
@@ -94,7 +74,7 @@ def test_find_available_workers(current_schedule_date, calendar):
     # final_available_workers --> EXCLUDES BOTH 비번 & default_exemption
     final_available_workers = []
 
-    exempted_workers = default_exemption()
+    exempted_workers = default_exemption(current_schedule_date)
     
     for worker in workers_data["workers"]:
         if (worker["name"] in exempted_workers):
@@ -192,7 +172,8 @@ def rest_exemption(avail_workers):
     return free_of_duty
 
 
-def two_times(next_kyohuan, required_ppl_count):
+def two_times(next_kyohuan, required_ppl_count, current_date):
+    print(f"Required people count: {required_ppl_count}")
     # Two Times Point System
     two_times_list = open('two_times.json')
     two_times_list = json.load(two_times_list)
@@ -203,7 +184,7 @@ def two_times(next_kyohuan, required_ppl_count):
 
     # Exclude those who r in kyohuan & 열외
     for worker, desc in two_times_list.items():
-        if (worker in next_kyohuan or worker in default_exemption()):
+        if (worker in next_kyohuan or worker in default_exemption(current_date)):
             continue
         else:
             ttl_excluding_kyohuan[str(worker)] = {"two_times_count": int(desc["two_times_count"])}
@@ -323,7 +304,7 @@ def allocate_current_kyohuan(prev_data, available_workers):
             })
     return [next_kyohuan, updated_schedule, previous_kyohuan]
 
-def allocate_two_times(current_schedule, available_workers, next_kyohuan, weekends_):
+def allocate_two_times(current_schedule, available_workers, next_kyohuan, weekends_, current_date):
     DAYTIME = []
     NIGHTTIME = []
     if (weekends_ is True):
@@ -342,7 +323,7 @@ def allocate_two_times(current_schedule, available_workers, next_kyohuan, weeken
     two_times_chosen_workers = []
 
     if (len(check_free_peeps) < len(missing_timings)):
-        two_times_duty = two_times(next_kyohuan, len(missing_timings) - len(check_free_peeps))
+        two_times_duty = two_times(next_kyohuan, len(missing_timings) - len(check_free_peeps), current_date)
         for two_times_worker in two_times_duty:
 
             while True:

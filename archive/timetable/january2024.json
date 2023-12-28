@@ -82,7 +82,7 @@
     "2024-01-14": {
         "isHoliday": true,
         "isTraining": false,
-        "isPlanned": false
+        "isPlanned": true
     },
     "2024-01-15": {
         "isHoliday": false,

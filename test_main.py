@@ -2,7 +2,7 @@ import json
 from misc_util import (
     find_previous_schedule, 
     test_find_available_workers, find_available_workers,
-    allocate_current_kyohuan, set_current_schedule_date,
+    allocate_current_kyohuan,
     allocate_two_times, fill_remaining
 ) 
 from datetime import datetime, timedelta
@@ -33,13 +33,13 @@ current_schedule = {"members": []}
 if (calendar[current_date]["isHoliday"]):
     if (calendar[previous_date]["isHoliday"]):
         # Allocate 2 탕 근무자 (if there is a need)
-        current_schedule = allocate_two_times(current_schedule, available_workers, [], True)
+        current_schedule = allocate_two_times(current_schedule, available_workers, [], True, current_date)
         # Filling in the remaining workers
         current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, [])
     elif (calendar[previous_date]["isHoliday"] == False):
         previous_kyohuan = list(set([i["name"] for i in prev_schedule["members"] if i["workTime"] < 5]))
         # Allocate 2 탕 근무자 (if there is a need)
-        current_schedule = allocate_two_times(current_schedule, available_workers, [], True)
+        current_schedule = allocate_two_times(current_schedule, available_workers, [], True, current_date)
         # Filling in the remaining workers
         current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan)
 elif (calendar[current_date]["isHoliday"] == False):
@@ -53,7 +53,7 @@ elif (calendar[current_date]["isHoliday"] == False):
     next_kyohuan, current_schedule, previous_kyohuan = allocate_current_kyohuan(prev_schedule, available_workers)
     
     # Allocate 2 탕 근무자 (if there is a need)
-    current_schedule = allocate_two_times(current_schedule, available_workers, next_kyohuan, False)
+    current_schedule = allocate_two_times(current_schedule, available_workers, next_kyohuan, False, current_date)
         
     # Filling in the remaining workers
     current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan)

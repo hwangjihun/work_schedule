@@ -25,7 +25,7 @@ previous_date = datetime.strftime(previous_date, '%Y-%m-%d')
 prev_schedule = open(f'./archive/json/{previous_date}.json')
 prev_schedule = json.load(prev_schedule)
 
-available_workers = test_find_available_workers(current_date)
+available_workers = test_find_available_workers(current_date, calendar)
 
 
 current_schedule = {"members": []}

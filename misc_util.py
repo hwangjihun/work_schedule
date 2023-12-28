@@ -81,9 +81,10 @@ def default_exemption():
                 exempted_workers.append(worker["name"])
 
     return exempted_workers
-def test_find_available_workers(current_schedule_date):
+def test_find_available_workers(current_schedule_date, calendar):
     workers_db = open('workers.json')
     workers_data = json.load(workers_db)
+
 
     # Find all the available workers on the day
 
@@ -101,17 +102,24 @@ def test_find_available_workers(current_schedule_date):
         else:
             available_workers.append(worker)
 
-    # Weekday 비번 Criteria
-    if (len(available_workers) > 10 and datetime.strptime(current_schedule_date, "%Y-%m-%d").weekday() < 5):
+    # Working Day 비번 Criteria
+    if (len(available_workers) > 10 and calendar[current_schedule_date]["isHoliday"] == False):
         exempted_workers = rest_exemption(len(available_workers))
         for worker in available_workers:
             if (worker["name"] in exempted_workers):
                 continue
             else:
                 final_available_workers.append(worker)  
+    elif (len(available_workers) > 12 and calendar[current_schedule_date]["isHoliday"] == True):
+        exempted_workers = rest_exemption(len(available_workers))
+        for worker in available_workers:
+            if (worker["name"] in exempted_workers):
+                continue
+            else:
+                final_available_workers.append(worker)
     else:
         final_available_workers = available_workers
-
+    print([worker["name"] for worker in final_available_workers])
     workers_db.close()
     return final_available_workers
 

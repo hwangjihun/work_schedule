@@ -99,45 +99,44 @@ def test_find_available_workers(current_schedule_date, calendar):
                 final_available_workers.append(worker)
     else:
         final_available_workers = available_workers
-    print([worker["name"] for worker in final_available_workers])
     workers_db.close()
     return final_available_workers
 
-def find_available_workers():
-    workers_db = open('workers.json')
-    workers_data = json.load(workers_db)
+# def find_available_workers():
+#     workers_db = open('workers.json')
+#     workers_data = json.load(workers_db)
 
-    # Find all the available workers on the day
+#     # Find all the available workers on the day
 
-    # available_workers --> ONLY EXCLUDES DEFAULT EXEMPTION ('휴가, etc')
-    available_workers = []
+#     # available_workers --> ONLY EXCLUDES DEFAULT EXEMPTION ('휴가, etc')
+#     available_workers = []
 
-    # final_available_workers --> EXCLUDES BOTH 비번 & default_exemption
-    final_available_workers = []
+#     # final_available_workers --> EXCLUDES BOTH 비번 & default_exemption
+#     final_available_workers = []
 
-    exempted_workers = default_exemption()
+#     exempted_workers = default_exemption()
     
-    for worker in workers_data["workers"]:
-        if (worker["name"] in exempted_workers):
-            continue
-        else:
-            available_workers.append(worker)
+#     for worker in workers_data["workers"]:
+#         if (worker["name"] in exempted_workers):
+#             continue
+#         else:
+#             available_workers.append(worker)
 
-    current_schedule_date = set_current_schedule_date()
+#     current_schedule_date = set_current_schedule_date()
 
-    # Weekday 비번 Criteria
-    if (len(available_workers) > 10 and datetime.strptime(current_schedule_date, "%Y-%m-%d").weekday() < 5):
-        exempted_workers = rest_exemption(len(available_workers))
-        for worker in available_workers:
-            if (worker["name"] in exempted_workers):
-                continue
-            else:
-                final_available_workers.append(worker)  
-    else:
-        final_available_workers = available_workers
+#     # Weekday 비번 Criteria
+#     if (len(available_workers) > 10 and datetime.strptime(current_schedule_date, "%Y-%m-%d").weekday() < 5):
+#         exempted_workers = rest_exemption(len(available_workers))
+#         for worker in available_workers:
+#             if (worker["name"] in exempted_workers):
+#                 continue
+#             else:
+#                 final_available_workers.append(worker)  
+#     else:
+#         final_available_workers = available_workers
 
-    workers_db.close()
-    return final_available_workers
+#     workers_db.close()
+#     return final_available_workers
 
 def rest_exemption(avail_workers):
     # 비번 (for this to come true, there must not be anyone who does two shifts in a day)
@@ -233,7 +232,7 @@ def two_times(next_kyohuan, required_ppl_count, current_date):
     #     two_times_list[unlucky_boi]["two_times_count"] += 1
 
   
-
+    # print(f"Two times duty: {two_times_duty}")
     with open("two_times.json", "w") as outfile: 
         json.dump(two_times_list, outfile, indent=4, ensure_ascii=False)
     return two_times_duty
@@ -315,7 +314,8 @@ def allocate_two_times(current_schedule, available_workers, next_kyohuan, weeken
         NIGHTTIME = [i for i in range(8, 13)]
     missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in current_schedule["members"]])
     check_free_peeps = array_diff([i["name"] for i in available_workers], [worker["name"] for worker in current_schedule["members"]])
-  
+    print(f"Missing timings: {missing_timings}")
+    print(f"FRee people: {check_free_peeps}")
     # Check if there is more 근무 OR if there is more free people
     ttd_filled_dt = []
     ttd_filled_nt = []
@@ -350,17 +350,19 @@ def fill_remaining(current_schedule, available_workers, previous_schedule, previ
     missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in current_schedule["members"]])
     check_free_peeps = array_diff([i["name"] for i in available_workers], [worker["name"] for worker in current_schedule["members"]])
     
+    print(f"missing timings at fill remaining: {missing_timings}")
+    print(f"check free peeps at fill remaining{check_free_peeps}")
     DAYTIME = [timeid for timeid in missing_timings if timeid in range(1, 8)]
     NIGHTTIME = [timeid for timeid in missing_timings if timeid in range(8, 13)]
     
     rng_day = RandomNumberGenerator(choices=DAYTIME)
     rng_night = RandomNumberGenerator(choices=NIGHTTIME)
     
-    # FIlters out previous kyohuan and two times 근무 from yesterday
+    # Filters out previous kyohuan and two times 근무 from yesterday
     two_times_dict = {}
     two_times_duty_prev = []
     for member in previous_schedule["members"]:
-        if (member["workTime"] < 5):
+        if (len(previous_kyohuan) > 0 and member["workTime"] < 5):
             continue
         else:
             if (member["name"] in list(two_times_dict.keys())):
@@ -368,12 +370,12 @@ def fill_remaining(current_schedule, available_workers, previous_schedule, previ
             else:
                 two_times_dict[member["name"]] = 1
     max_count_two_times = max(list(two_times_dict.values()))
-
+    print(f"two_times_dict {two_times_dict}")
     if (max_count_two_times > 1):
         for member, count in two_times_dict.items(): 
             if (count != 1):
                 two_times_duty_prev.append(str(member))    
-
+    print(f"two_times_duty_previous {two_times_duty_prev}")
     filtered_previous_schedule = []
     for member in previous_schedule["members"]:
         if (member["name"] in check_free_peeps):

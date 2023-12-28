@@ -35,27 +35,28 @@ if (calendar[current_date]["isHoliday"]):
         current_schedule = allocate_two_times(current_schedule, available_workers, [], True, current_date)
         # Filling in the remaining workers
         current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, [])
-#     elif (calendar[previous_date]["isHoliday"] == False):
-#         previous_kyohuan = list(set([i["name"] for i in prev_schedule["members"] if i["workTime"] < 5]))
-#         # Allocate 2 탕 근무자 (if there is a need)
-#         current_schedule = allocate_two_times(current_schedule, available_workers, [], True, current_date)
-#         # Filling in the remaining workers
-#         current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan)
-# elif (calendar[current_date]["isHoliday"] == False):
-#     # Filter for Planned Dates (latest previous work day)
-#     planned_dates = {date: info for date, info in calendar.items() if info['isPlanned'] == True and info['isHoliday'] == False and info["isTraining"] == False}
-#     latest_previous_work_day = list(planned_dates.keys())[-1]
-#     prev_schedule = open(f'./archive/json/{latest_previous_work_day}.json')
-#     prev_schedule = json.load(prev_schedule)
+    elif (calendar[previous_date]["isHoliday"] == False):
+        previous_kyohuan = list(set([i["name"] for i in prev_schedule["members"] if i["workTime"] < 5]))
+        # Allocate 2 탕 근무자 (if there is a need)
+        current_schedule = allocate_two_times(current_schedule, available_workers, [], True, current_date)
+        # Filling in the remaining workers
+        current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan)
+elif (calendar[current_date]["isHoliday"] == False):
+    # Filter for Planned Dates (latest previous work day)
+    planned_dates = {date: info for date, info in calendar.items() if info['isPlanned'] == True and info['isHoliday'] == False and info["isTraining"] == False}
+    latest_previous_work_day = list(planned_dates.keys())[-1]
+    print(latest_previous_work_day)
+    prev_schedule = open(f'./archive/json/{latest_previous_work_day}.json')
+    prev_schedule = json.load(prev_schedule)
 
-#     # Allocate Current Kyohuan
-#     next_kyohuan, current_schedule, previous_kyohuan = allocate_current_kyohuan(prev_schedule, available_workers)
+    # Allocate Current Kyohuan
+    next_kyohuan, current_schedule, previous_kyohuan = allocate_current_kyohuan(prev_schedule, available_workers)
     
-#     # Allocate 2 탕 근무자 (if there is a need)
-#     current_schedule = allocate_two_times(current_schedule, available_workers, next_kyohuan, False, current_date)
+    # Allocate 2 탕 근무자 (if there is a need)
+    current_schedule = allocate_two_times(current_schedule, available_workers, next_kyohuan, False, current_date)
         
-#     # Filling in the remaining workers
-#     current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan)
+    # Filling in the remaining workers
+    current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan)
    
 
 sorted_schedule = sorted(current_schedule["members"], key=sort_schedule)
@@ -70,8 +71,7 @@ json_object = json.dumps(formatted_sorted_schedule, indent=4, ensure_ascii=False
 with open(f"./archive/json/{current_date}.json", "w") as outfile:
     outfile.write(json_object)
 
-# calendar[current_date]['isPlanned'] = True
+calendar[current_date]['isPlanned'] = True
 
-# print(calendar)
-# with open(f"./archive/timetable/january2024.json", 'w') as json_file:
-#     json.dump(calendar, json_file, indent=4)
+with open(f"./archive/timetable/january2024.json", 'w') as json_file:
+    json.dump(calendar, json_file, indent=4)

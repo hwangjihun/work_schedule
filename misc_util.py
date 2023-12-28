@@ -182,6 +182,7 @@ def two_times(next_kyohuan, required_ppl_count, current_date):
     two_times_duty = []
 
     # Exclude those who r in kyohuan & 열외
+    # might wanna fix default exemption to available workers
     for worker, desc in two_times_list.items():
         if (worker in next_kyohuan or worker in default_exemption(current_date)):
             continue
@@ -204,6 +205,7 @@ def two_times(next_kyohuan, required_ppl_count, current_date):
                 ttd_to_randomize[worker] = desc 
         
         unlucky_boi = random.choice(list(ttd_to_randomize.keys()))
+        print(unlucky_boi)
         # Collision problem
         if (unlucky_boi in two_times_duty):
             continue
@@ -213,7 +215,7 @@ def two_times(next_kyohuan, required_ppl_count, current_date):
         # Awarded one point for doing two time
         ttl_excluding_kyohuan[unlucky_boi]["two_times_count"] += 1
         two_times_list[unlucky_boi]["two_times_count"] += 1
-
+        
     # for i in range(required_ppl_count):
     #     least_point = min([worker["two_times_count"] for worker in ttl_excluding_kyohuan.values()])
     #     # ttd stands for two times duty
@@ -232,7 +234,7 @@ def two_times(next_kyohuan, required_ppl_count, current_date):
     #     two_times_list[unlucky_boi]["two_times_count"] += 1
 
   
-    # print(f"Two times duty: {two_times_duty}")
+    print(f"Two times duty: {two_times_duty}")
     with open("two_times.json", "w") as outfile: 
         json.dump(two_times_list, outfile, indent=4, ensure_ascii=False)
     return two_times_duty

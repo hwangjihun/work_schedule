@@ -9,21 +9,39 @@ def array_diff(li1, li2):
     li_dif = [i for i in li1 + li2 if i not in li1 or i not in li2]
     return li_dif
 
-REST_LIST = [
+REST_LIST = [   
                 {
-                    "name": "김동수"
+                    "name": "채현우"
                 },
                 {
-                    "name": "김태언"
+                    "name": "허정현"
                 },
                 {
-                    "name": "황지훈"
+                    "name": "유창우"
                 },
                 {
                     "name": "채현우"
                 },
                 {
-                    "name": "최진영"
+                    "name": "김동수"
+                },
+                {
+                    "name": "한철웅"
+                },
+                {
+                    "name": "민준식"
+                },
+                {
+                    "name": "김태언"
+                },
+                {
+                    "name": "최선웅"
+                },
+                {
+                    "name": "황지훈"
+                },
+                {
+                    "name": "변희원"
                 }
             ]
 
@@ -240,7 +258,7 @@ def two_times(next_kyohuan, required_ppl_count, current_date):
     return two_times_duty
 
 
-def allocate_current_kyohuan(prev_data, available_workers):
+def allocate_current_kyohuan(prev_data, available_workers, yesterday_data):
     next_kyohuan = []
     previous_kyohuan = []
     if (len(prev_data)) == 0:
@@ -274,7 +292,8 @@ def allocate_current_kyohuan(prev_data, available_workers):
     # Ensure that the previous day's 막번 does not go into 오전 교환
     # (only if the 막번 is a signal soldier)
 
-    prev_final_time_worker = list(filter(lambda worker: worker['workTime'] == 12, prev_data["members"]))
+    prev_final_time_worker = list(filter(lambda worker: worker['workTime'] == 12, yesterday_data["members"]))
+    print(f"Previous final time worker: {prev_final_time_worker[0]}")
     if (prev_final_time_worker[0]['name'] in next_kyohuan):
         bfr_lunch_worker = array_diff(next_kyohuan, [prev_final_time_worker[0]['name']])
         updated_schedule["members"].append({

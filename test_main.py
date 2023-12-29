@@ -50,7 +50,12 @@ elif (calendar[current_date]["isHoliday"] == False):
     prev_schedule = json.load(prev_schedule)
 
     # Allocate Current Kyohuan
-    next_kyohuan, current_schedule, previous_kyohuan = allocate_current_kyohuan(prev_schedule, available_workers)
+    # (For preventing collision)
+    yesterday_date = datetime.strptime(current_date, '%Y-%m-%d') - timedelta(days=1)
+    yesterday_date = datetime.strftime(yesterday_date, '%Y-%m-%d')
+    yesterday_data = open(f'./archive/json/{yesterday_date}.json')
+    yesterday_data = json.load(yesterday_data)
+    next_kyohuan, current_schedule, previous_kyohuan = allocate_current_kyohuan(prev_schedule, available_workers, yesterday_data)
     
     # Allocate 2 탕 근무자 (if there is a need)
     current_schedule = allocate_two_times(current_schedule, available_workers, next_kyohuan, False, current_date)

@@ -120,41 +120,41 @@ def test_find_available_workers(current_schedule_date, calendar):
     workers_db.close()
     return final_available_workers
 
-# def find_available_workers():
-#     workers_db = open('workers.json')
-#     workers_data = json.load(workers_db)
+def find_available_workers():
+    workers_db = open('workers.json')
+    workers_data = json.load(workers_db)
 
-#     # Find all the available workers on the day
+    # Find all the available workers on the day
 
-#     # available_workers --> ONLY EXCLUDES DEFAULT EXEMPTION ('휴가, etc')
-#     available_workers = []
+    # available_workers --> ONLY EXCLUDES DEFAULT EXEMPTION ('휴가, etc')
+    available_workers = []
 
-#     # final_available_workers --> EXCLUDES BOTH 비번 & default_exemption
-#     final_available_workers = []
+    # final_available_workers --> EXCLUDES BOTH 비번 & default_exemption
+    final_available_workers = []
 
-#     exempted_workers = default_exemption()
+    exempted_workers = default_exemption()
     
-#     for worker in workers_data["workers"]:
-#         if (worker["name"] in exempted_workers):
-#             continue
-#         else:
-#             available_workers.append(worker)
+    for worker in workers_data["workers"]:
+        if (worker["name"] in exempted_workers):
+            continue
+        else:
+            available_workers.append(worker)
 
-#     current_schedule_date = set_current_schedule_date()
+    current_schedule_date = set_current_schedule_date()
 
-#     # Weekday 비번 Criteria
-#     if (len(available_workers) > 10 and datetime.strptime(current_schedule_date, "%Y-%m-%d").weekday() < 5):
-#         exempted_workers = rest_exemption(len(available_workers))
-#         for worker in available_workers:
-#             if (worker["name"] in exempted_workers):
-#                 continue
-#             else:
-#                 final_available_workers.append(worker)  
-#     else:
-#         final_available_workers = available_workers
+    # Weekday 비번 Criteria
+    if (len(available_workers) > 10 and datetime.strptime(current_schedule_date, "%Y-%m-%d").weekday() < 5):
+        exempted_workers = rest_exemption(len(available_workers))
+        for worker in available_workers:
+            if (worker["name"] in exempted_workers):
+                continue
+            else:
+                final_available_workers.append(worker)  
+    else:
+        final_available_workers = available_workers
 
-#     workers_db.close()
-#     return final_available_workers
+    workers_db.close()
+    return final_available_workers
 
 def rest_exemption(avail_workers):
     # 비번 (for this to come true, there must not be anyone who does two shifts in a day)

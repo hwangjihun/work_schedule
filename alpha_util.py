@@ -254,8 +254,7 @@ def allocate_two_times(current_schedule, rest_day, available_workers):
 def fill_remaining(current_schedule, available_workers, previous_schedule, previous_kyohuan):
     missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in current_schedule["members"]])
     check_free_peeps = array_diff([i["name"] for i in available_workers], [worker["name"] for worker in current_schedule["members"]])
-    print(check_free_peeps)
-    print(f"missing timings at fill remaining: {missing_timings}")
+ 
     print(f"check free peeps at fill remaining{check_free_peeps}")
     DAYTIME = [timeid for timeid in missing_timings if timeid in range(1, 8)]
     NIGHTTIME = [timeid for timeid in missing_timings if timeid in range(8, 13)]

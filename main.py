@@ -33,14 +33,14 @@ if (calendar[current_date]["isHoliday"]):
         # Allocate 2 탕 근무자 (if there is a need)
         current_schedule = allocate_two_times(current_schedule, True, available_workers)
         # Filling in the remaining workers
-        current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, [])
+        current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, [], True)
     elif (calendar[previous_date]["isHoliday"] == False):
         previous_kyohuan = list(set([i["name"] for i in prev_schedule["members"] if i["workTime"] < 5]))
         print(previous_kyohuan)
         # Allocate 2 탕 근무자 (if there is a need)
         current_schedule = allocate_two_times(current_schedule, True, available_workers)
         # Filling in the remaining workers
-        current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan)
+        current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan, False)
 elif (calendar[current_date]["isHoliday"] == False):
     # Filter for Planned Dates (latest previous work day)
     planned_dates = {date: info for date, info in calendar.items() if info['isPlanned'] == True and info['isHoliday'] == False and info["isTraining"] == False}
@@ -56,7 +56,7 @@ elif (calendar[current_date]["isHoliday"] == False):
     current_schedule = allocate_two_times(current_schedule, False, available_workers)
  
     # Filling in the remaining workers
-    if (calendar[previous_date]["isHoliday == True"]):
+    if (calendar[previous_date]["isHoliday"] == True):
         current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan, True)
     else:
         current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan, False)

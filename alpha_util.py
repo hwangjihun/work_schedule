@@ -251,7 +251,7 @@ def allocate_two_times(current_schedule, rest_day, available_workers):
 
     return current_schedule 
 
-def fill_remaining(current_schedule, available_workers, previous_schedule, previous_kyohuan):
+def fill_remaining(current_schedule, available_workers, previous_schedule, previous_kyohuan, isHoliday):
     missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in current_schedule["members"]])
     check_free_peeps = array_diff([i["name"] for i in available_workers], [worker["name"] for worker in current_schedule["members"]])
  
@@ -265,14 +265,25 @@ def fill_remaining(current_schedule, available_workers, previous_schedule, previ
     # Filters out previous kyohuan and two times 근무 from yesterday
     two_times_dict = {}
     two_times_duty_prev = []
-    for member in previous_schedule["members"]:
-        if (len(previous_kyohuan) > 0 and member["workTime"] < 5):
-            continue
-        else:
+
+    # Could be weekends yesterday
+    if (isHoliday):
+        for member in previous_schedule["members"]:
             if (member["name"] in list(two_times_dict.keys())):
                 two_times_dict[member["name"]] += 1
             else:
                 two_times_dict[member["name"]] = 1
+        
+    elif (isHoliday is False):
+        for member in previous_schedule["members"]:
+            if (member["workTime"] < 5):
+                continue 
+            else:
+                if (member["name"] in list(two_times_dict.keys())):
+                    two_times_dict[member["name"]] += 1
+                else:
+                    two_times_dict[member["name"]] = 1
+
     max_count_two_times = max(list(two_times_dict.values()))
     print(f"two_times_dict {two_times_dict}")
     if (max_count_two_times > 1):
@@ -280,13 +291,22 @@ def fill_remaining(current_schedule, available_workers, previous_schedule, previ
             if (count != 1):
                 two_times_duty_prev.append(str(member))    
     print(f"two_times_duty_previous {two_times_duty_prev}")
+    
     filtered_previous_schedule = []
-    for member in previous_schedule["members"]:
-        if (member["name"] in check_free_peeps):
-            if (member["name"] in previous_kyohuan or member["name"] in two_times_duty_prev):
-                continue
-            else:
-                filtered_previous_schedule.append(member)
+    if (isHoliday):
+        for member in previous_schedule["members"]:
+            if (member["name"] in check_free_peeps):
+                if (member["name"] in two_times_duty_prev):
+                    continue
+                else:
+                    filtered_previous_schedule.append(member)
+    elif (isHoliday is False):
+        for member in previous_schedule["members"]:
+            if (member["name"] in check_free_peeps):
+                if (member["name"] in previous_kyohuan or member["name"] in two_times_duty_prev):
+                    continue
+                else:
+                    filtered_previous_schedule.append(member)
     for member in filtered_previous_schedule:
         # Check if yesterday's 근무 WAS NIGHT
         if (member["workTime"] in range(8, 13)):

@@ -56,7 +56,10 @@ elif (calendar[current_date]["isHoliday"] == False):
     current_schedule = allocate_two_times(current_schedule, False, available_workers)
  
     # Filling in the remaining workers
-    current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan)
+    if (calendar[previous_date]["isHoliday == True"]):
+        current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan, True)
+    else:
+        current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan, False)
    
 
 sorted_schedule = sorted(current_schedule["members"], key=sort_schedule)

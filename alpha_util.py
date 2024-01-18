@@ -259,73 +259,73 @@ def fill_remaining(current_schedule, available_workers, previous_schedule, previ
     DAYTIME = [timeid for timeid in missing_timings if timeid in range(1, 8)]
     NIGHTTIME = [timeid for timeid in missing_timings if timeid in range(8, 13)]
     
-    rng_day = RandomNumberGenerator(choices=DAYTIME)
-    rng_night = RandomNumberGenerator(choices=NIGHTTIME)
-    
-    # Filters out previous kyohuan and two times 근무 from yesterday
-    two_times_dict = {}
-    two_times_duty_prev = []
+    if (len(DAYTIME) != 0 and len(NIGHTTIME) != 0):
+        rng_day = RandomNumberGenerator(choices=DAYTIME)
+        rng_night = RandomNumberGenerator(choices=NIGHTTIME)
+        # Filters out previous kyohuan and two times 근무 from yesterday
+        two_times_dict = {}
+        two_times_duty_prev = []
 
-    # Could be weekends yesterday
-    if (isHoliday):
-        for member in previous_schedule["members"]:
-            if (member["name"] in list(two_times_dict.keys())):
-                two_times_dict[member["name"]] += 1
-            else:
-                two_times_dict[member["name"]] = 1
-        
-    elif (isHoliday is False):
-        for member in previous_schedule["members"]:
-            if (member["workTime"] < 5):
-                continue 
-            else:
+        # Could be weekends yesterday
+        if (isHoliday):
+            for member in previous_schedule["members"]:
                 if (member["name"] in list(two_times_dict.keys())):
                     two_times_dict[member["name"]] += 1
                 else:
                     two_times_dict[member["name"]] = 1
+            
+        elif (isHoliday is False):
+            for member in previous_schedule["members"]:
+                if (member["workTime"] < 5):
+                    continue 
+                else:
+                    if (member["name"] in list(two_times_dict.keys())):
+                        two_times_dict[member["name"]] += 1
+                    else:
+                        two_times_dict[member["name"]] = 1
 
-    max_count_two_times = max(list(two_times_dict.values()))
-    print(f"two_times_dict {two_times_dict}")
-    if (max_count_two_times > 1):
-        for member, count in two_times_dict.items(): 
-            if (count != 1):
-                two_times_duty_prev.append(str(member))    
-    print(f"two_times_duty_previous {two_times_duty_prev}")
-    
-    filtered_previous_schedule = []
-    if (isHoliday):
-        for member in previous_schedule["members"]:
-            if (member["name"] in check_free_peeps):
-                if (member["name"] in two_times_duty_prev):
+        max_count_two_times = max(list(two_times_dict.values()))
+        print(f"two_times_dict {two_times_dict}")
+        if (max_count_two_times > 1):
+            for member, count in two_times_dict.items(): 
+                if (count != 1):
+                    two_times_duty_prev.append(str(member))    
+        print(f"two_times_duty_previous {two_times_duty_prev}")
+        
+        filtered_previous_schedule = []
+        if (isHoliday):
+            for member in previous_schedule["members"]:
+                if (member["name"] in check_free_peeps):
+                    if (member["name"] in two_times_duty_prev):
+                        continue
+                    else:
+                        filtered_previous_schedule.append(member)
+        elif (isHoliday is False):
+            for member in previous_schedule["members"]:
+                if (member["name"] in check_free_peeps):
+                    if (member["name"] in previous_kyohuan or member["name"] in two_times_duty_prev):
+                        continue
+                    else:
+                        filtered_previous_schedule.append(member)
+        for member in filtered_previous_schedule:
+            # Check if yesterday's 근무 WAS NIGHT
+            if (member["workTime"] in range(8, 13)):
+                random_dt = rng_day.generate_random_number()
+                if (random_dt is None):
                     continue
-                else:
-                    filtered_previous_schedule.append(member)
-    elif (isHoliday is False):
-        for member in previous_schedule["members"]:
-            if (member["name"] in check_free_peeps):
-                if (member["name"] in previous_kyohuan or member["name"] in two_times_duty_prev):
+                current_schedule["members"].append({
+                    "name": member["name"],
+                    "workTime": random_dt
+                })
+            # Check if yesterday's 근무 WAS DAY
+            elif (member["workTime"] in range(1, 8)):
+                random_nt = rng_night.generate_random_number()
+                if (random_nt is None):
                     continue
-                else:
-                    filtered_previous_schedule.append(member)
-    for member in filtered_previous_schedule:
-        # Check if yesterday's 근무 WAS NIGHT
-        if (member["workTime"] in range(8, 13)):
-            random_dt = rng_day.generate_random_number()
-            if (random_dt is None):
-                continue
-            current_schedule["members"].append({
-                "name": member["name"],
-                "workTime": random_dt
-            })
-        # Check if yesterday's 근무 WAS DAY
-        elif (member["workTime"] in range(1, 8)):
-            random_nt = rng_night.generate_random_number()
-            if (random_nt is None):
-                continue
-            current_schedule["members"].append({
-                "name": member["name"],
-                "workTime": random_nt
-            })
+                current_schedule["members"].append({
+                    "name": member["name"],
+                    "workTime": random_nt
+                })
     # If there's still remaining people, randomly slot them in 
     missing_timings = array_diff([i for i in range(1, 13)],  [worker["workTime"] for worker in current_schedule["members"]])
     check_free_peeps = array_diff([i["name"] for i in available_workers], [worker["name"] for worker in current_schedule["members"]])

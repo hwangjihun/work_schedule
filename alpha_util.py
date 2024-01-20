@@ -9,7 +9,6 @@ def array_diff(li1, li2):
     return li_dif
 
 REST_LIST = [
-    "채현우",
     "허정현",
     "유창우",
     "전성현",

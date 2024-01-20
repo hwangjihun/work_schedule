@@ -1,7 +1,7 @@
 {
     "members": [
         {
-            "name": "전성현",
+            "name": "최선웅",
             "workTime": 1
         },
         {
@@ -13,23 +13,23 @@
             "workTime": 3
         },
         {
-            "name": "최선웅",
+            "name": "민준식",
             "workTime": 4
         },
         {
-            "name": "허정현",
+            "name": "변희원",
             "workTime": 5
         },
         {
-            "name": "변희원",
+            "name": "한철웅",
             "workTime": 6
         },
         {
-            "name": "민준식",
+            "name": "허정현",
             "workTime": 7
         },
         {
-            "name": "허정현",
+            "name": "최진영",
             "workTime": 8
         },
         {
@@ -37,15 +37,15 @@
             "workTime": 9
         },
         {
-            "name": "최선웅",
+            "name": "김태언",
             "workTime": 10
         },
         {
-            "name": "한철웅",
+            "name": "허정현",
             "workTime": 11
         },
         {
-            "name": "채현우",
+            "name": "전성현",
             "workTime": 12
         }
     ]

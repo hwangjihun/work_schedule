@@ -43,7 +43,6 @@
             "exempted_end_date": "2024-02-24"
         },
         {
-            "id": 8,
             "name": "최선웅",
             "ss": false,
             "exempted_reason": "외박",
@@ -51,7 +50,6 @@
             "exempted_end_date": "2024-02-03"
         },
         {
-            "id": 9,
             "name": "김태언",
             "ss": false,
             "exempted_reason": "5대기",
@@ -59,7 +57,6 @@
             "exempted_end_date": "2024-02-23"
         },
         {
-            "id": 10,
             "name": "민준식",
             "ss": false,
             "exempted_reason": "휴가",
@@ -67,7 +64,6 @@
             "exempted_end_date": "2024-02-23"
         },
         {
-            "id": 12,
             "name": "전성현",
             "ss": false,
             "exempted_reason": "na",

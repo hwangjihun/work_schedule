@@ -70,12 +70,14 @@ else:
     # Allocate Current Kyohuan
     # find exempted signal soldiers
     exempted_signal_soldiers = [worker["name"] for worker in exempted_workers if worker["ss"] == True]
-    current_schedule = allocate_current_kyohuan(exempted_signal_soldiers, prev_schedule)
-    # Allocate 2 탕 근무자 (if there is a need)
-    current_schedule = allocate_two_times(current_schedule, False, available_workers)
+    # current_schedule = allocate_current_kyohuan(exempted_signal_soldiers, prev_work_schedule)
+    # # Allocate 2 탕 근무자 (if there is a need)
+    # current_schedule = allocate_two_times(current_schedule, False, available_workers)
  
     # Filling in the remaining workers
     if (calendar[previous_date]["isHoliday"] == True):
+        current_schedule = allocate_current_kyohuan(exempted_signal_soldiers, prev_schedule)
+        current_schedule = allocate_two_times(current_schedule, False, available_workers)
         current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, [], True)
     elif (calendar[previous_date]["isTraining"] == True):
         # Filter for Planned Dates (latest previous day that is not training)
@@ -84,14 +86,18 @@ else:
         prev_temp_schedule = open(f'./archive/json/{latest_previous_work_day}.json')
         prev_temp_schedule = json.load(prev_temp_schedule)
         if (calendar[latest_previous_work_day]["isHoliday"]):
-            current_schedule = allocate_two_times(current_schedule, True, available_workers)
+            current_schedule = allocate_current_kyohuan(exempted_signal_soldiers, prev_temp_schedule)
+            current_schedule = allocate_two_times(current_schedule, False, available_workers)
             # Filling in the remaining workers
             current_schedule = fill_remaining(current_schedule, available_workers, prev_temp_schedule, [], True)
         else:
             previous_kyohuan = list(set([i["name"] for i in prev_temp_schedule["members"] if i["workTime"] < 5]))
-            current_schedule = allocate_two_times(current_schedule, True, available_workers)
+            current_schedule = allocate_current_kyohuan(exempted_signal_soldiers, prev_temp_schedule)
+            current_schedule = allocate_two_times(current_schedule, False, available_workers)
             current_schedule = fill_remaining(current_schedule, available_workers, prev_temp_schedule, previous_kyohuan, False)
     else:
+        current_schedule = allocate_current_kyohuan(exempted_signal_soldiers, prev_work_schedule)
+        current_schedule = allocate_two_times(current_schedule, False, available_workers)
         current_schedule = fill_remaining(current_schedule, available_workers, prev_schedule, previous_kyohuan, False)
 
 

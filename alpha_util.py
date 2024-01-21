@@ -18,7 +18,8 @@ REST_LIST = [
     "김태언",
     "최선웅",
     "황지훈",
-    "변희원"
+    "변희원",
+    "최진영"
 ]
 
 SIGNAL_SOLDIERS_LIST = [

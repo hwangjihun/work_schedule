@@ -79,6 +79,7 @@ def find_available_workers(current_schedule_date, calendar):
     available_workers = []
     final_available_workers = []
     exempted_workers = default_exemption(current_schedule_date)
+    resting_workers = []
     try:
         yesterday_data = json.load(open(f"./archive/json/{previous_date}.json"))
         yesterday_dangjik = list(filter(lambda worker: worker['workTime'] == 6, yesterday_data["members"]))[0]["name"]
@@ -90,7 +91,9 @@ def find_available_workers(current_schedule_date, calendar):
             continue
         else:
             available_workers.append(worker["name"])
-    resting_workers = rest_exemption(len(available_workers) - 6)
+    if (len(available_workers) > 6):
+        resting_workers = rest_exemption(len(available_workers) - 6)
+    print(f"Current Schedule Date: {current_schedule_date}. Today's 비번: {resting_workers}")
     for worker in available_workers:
         if worker in resting_workers:
             continue

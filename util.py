@@ -1,5 +1,6 @@
 import json
 from datetime import datetime, timedelta
+import random
 
 WORKERS_LIST = [
     "허정현",
@@ -14,6 +15,10 @@ WORKERS_LIST = [
     "변희원"
 ]
 
+def array_diff(li1, li2):
+    li_dif = [i for i in li1 + li2 if i not in li1 or i not in li2]
+    return li_dif
+
 def default_exemption(current_schedule_date):
     exempted_workers = []
     workers = json.load(open('workers.json'))["workers"]
@@ -23,10 +28,11 @@ def default_exemption(current_schedule_date):
         if (worker["exempted_start_date"] == "na" and worker["exempted_end_date"] == "na"): 
             continue 
         else: 
-            exempted_start_date = datetime.strptime(worker["exempted_start_date"], '%Y-%m-%d')
-            exempted_end_date = datetime.strptime(worker["exempted_end_date"], '%Y-%m-%d')
-            if (exempted_start_date <= target_date <= exempted_end_date):
-                exempted_workers.append(worker["name"])
+            for exempted_start_date, exempted_end_date in zip(worker["exempted_start_date"], worker["exempted_end_date"]):
+                exempted_start_date = datetime.strptime(exempted_start_date, '%Y-%m-%d')
+                exempted_end_date = datetime.strptime(exempted_end_date, '%Y-%m-%d')
+                if (exempted_start_date <= target_date <= exempted_end_date):
+                    exempted_workers.append(worker["name"])
 
     return exempted_workers
 
@@ -59,8 +65,12 @@ def find_available_workers(current_schedule_date, calendar):
     available_workers = []
     final_available_workers = []
     exempted_workers = default_exemption(current_schedule_date)
-    yesterday_data = json.load(open(f"./archive/json/{previous_date}.json"))
-    yesterday_dangjik = list(filter(lambda worker: worker['workTime'] == 6, yesterday_data["members"]))[0]["name"]
+    try:
+        yesterday_data = json.load(open(f"./archive/json/{previous_date}.json"))
+        yesterday_dangjik = list(filter(lambda worker: worker['workTime'] == 6, yesterday_data["members"]))[0]["name"]
+    except:
+        yesterday_dangjik = ""
+    
     for worker in workers_data["workers"]:
         if (worker["name"] in exempted_workers or worker["name"] == yesterday_dangjik):
             continue
@@ -88,11 +98,28 @@ def dangjik(available_workers):
         if (soldier in available_workers):
             CURRENT_DANGJIK = soldier
         visited.append(soldier)
-    print(visited)
     for worker in visited:
         workers.remove(worker)
-    print(f"current dangjik: {CURRENT_DANGJIK}")
     with open("dangjik.json", "w") as outfile: 
         json.dump(workers, outfile, indent=4, ensure_ascii=False)
 
-    return CURRENT_DANGJIK
+    updated_schedule = {"members": [
+        {
+            "name": CURRENT_DANGJIK,
+            "workTime": 6
+        }
+    ]}
+
+    return updated_schedule
+
+def fill_remaining(current_schedule, available_workers):
+    missing_timings = array_diff([i for i in range(1, 7)],  [worker["workTime"] for worker in current_schedule["members"]])
+    check_free_peeps = array_diff([i for i in available_workers], [worker["name"] for worker in current_schedule["members"]])
+    random.shuffle(missing_timings)
+    random.shuffle(check_free_peeps)
+    for mt, cfp in zip(missing_timings, check_free_peeps):
+        current_schedule["members"].append({
+            "name": cfp,
+            "workTime": mt
+        })
+    return current_schedule

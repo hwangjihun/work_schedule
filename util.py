@@ -104,7 +104,7 @@ def dangjik(available_workers):
     visited = []
     workers = list(json.load(open('dangjik.json')))
     
-    if (len(workers) < 1):
+    if (len(workers) <= 1):
         workers.extend(DANGJIK_QUEUE)
     for soldier in workers:
         if (CURRENT_DANGJIK != ""):

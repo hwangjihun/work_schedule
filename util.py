@@ -1,7 +1,8 @@
 import json
 from datetime import datetime, timedelta
 import random
-
+# Things to do
+# Implement a point system for dangjik n  2hours
 WORKERS_LIST = [
     "허정현",
     "유창우",

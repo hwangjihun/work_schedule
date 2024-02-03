@@ -15,6 +15,20 @@ WORKERS_LIST = [
     "변희원"
 ]
 
+
+DANGJIK_QUEUE = [
+    "황지훈",
+    "변희원",
+    "민준식",
+    "김태언",
+    "최선웅",
+    "한철웅",
+    "김동수",
+    "전성현",
+    "유창우",
+    "허정현"
+]
+
 def array_diff(li1, li2):
     li_dif = [i for i in li1 + li2 if i not in li1 or i not in li2]
     return li_dif
@@ -91,7 +105,7 @@ def dangjik(available_workers):
     workers = list(json.load(open('dangjik.json')))
     
     if (len(workers) < 1):
-        workers.extend(WORKERS_LIST)
+        workers.extend(DANGJIK_QUEUE)
     for soldier in workers:
         if (CURRENT_DANGJIK != ""):
             break

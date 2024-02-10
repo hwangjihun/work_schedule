@@ -13,11 +13,13 @@ WORKERS_LIST = [
     "김태언",
     "최선웅",
     "황지훈",
-    "변희원"
+    "변희원",
+    "최진영"
 ]
 
 
 DANGJIK_QUEUE = [
+    "최진영",
     "황지훈",
     "변희원",
     "민준식",
@@ -102,11 +104,11 @@ def find_available_workers(current_schedule_date, calendar):
             final_available_workers.append(worker)
     return final_available_workers
 
-def dangjik(available_workers):
+def workdays_dangjik(available_workers):
 
     CURRENT_DANGJIK = ""
     visited = []
-    workers = list(json.load(open('dangjik.json')))
+    workers = list(json.load(open('workdays_dangjik.json')))
     
     if (len(workers) <= 1):
         workers.extend(DANGJIK_QUEUE)
@@ -118,7 +120,35 @@ def dangjik(available_workers):
         visited.append(soldier)
     for worker in visited:
         workers.remove(worker)
-    with open("dangjik.json", "w") as outfile: 
+    with open("workdays_dangjik.json", "w") as outfile: 
+        json.dump(workers, outfile, indent=4, ensure_ascii=False)
+
+    updated_schedule = {"members": [
+        {
+            "name": CURRENT_DANGJIK,
+            "workTime": 6
+        }
+    ]}
+
+    return updated_schedule
+
+def weekends_dangjik(available_workers):
+
+    CURRENT_DANGJIK = ""
+    visited = []
+    workers = list(json.load(open('weekends_dangjik.json')))
+    
+    if (len(workers) <= 1):
+        workers.extend(DANGJIK_QUEUE)
+    for soldier in workers:
+        if (CURRENT_DANGJIK != ""):
+            break
+        if (soldier in available_workers):
+            CURRENT_DANGJIK = soldier
+        visited.append(soldier)
+    for worker in visited:
+        workers.remove(worker)
+    with open("weekends_dangjik.json", "w") as outfile: 
         json.dump(workers, outfile, indent=4, ensure_ascii=False)
 
     updated_schedule = {"members": [

@@ -1,7 +1,9 @@
 import json
+from datetime import datetime, timedelta
 from util import (
     find_available_workers,
-    dangjik,
+    workdays_dangjik,
+    weekends_dangjik,
     fill_remaining
 )
 
@@ -13,11 +15,16 @@ calendar = json.load(open("./2024.json"))
 unplanned_dates = list({date: info for date, info in calendar.items() if info['isPlanned'] == False}.keys())
 current_date = unplanned_dates[0]
 
+next_day = (datetime.strptime(current_date, "%Y-%m-%d") + timedelta(days=1)).strftime("%Y-%m-%d")
+
 available_workers = find_available_workers(current_date, calendar)
 
 current_schedule = {"members": []}
 
-current_schedule = dangjik(available_workers)
+if (calendar[next_day]["isHoliday"]):
+    current_schedule = weekends_dangjik(available_workers)
+else:
+    current_schedule = workdays_dangjik(available_workers)
 
 current_schedule = fill_remaining(current_schedule, available_workers)
 

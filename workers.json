@@ -4,71 +4,89 @@
             "name": "황지훈",
             "ss": true,
             "exempted_reason": "휴가",
-            "exempted_start_date": ["2024-02-11", "2024-02-13"],
-            "exempted_end_date": ["2024-02-11", "2024-02-27"]
+            "exempted_start_date": ["2024-02-13"],
+            "exempted_end_date": ["2024-02-27"],
+            "rank": 10
         },
         {
             "name": "변희원",
             "ss": true,
             "exempted_reason": "na",
-            "exempted_start_date": ["2024-02-11"],
-            "exempted_end_date": ["2024-02-11"]
+            "exempted_start_date": "na",
+            "exempted_end_date": "na",
+            "rank": 9
         },
         {
             "name": "한철웅",
             "ss": true,
-            "exempted_reason": "휴가",
-            "exempted_start_date": ["2024-02-03"],
-            "exempted_end_date": ["2024-02-08"]
+            "exempted_reason": "na",
+            "exempted_start_date": "na",
+            "exempted_end_date": "na",
+            "rank": 5
         },
         {
             "name": "김동수",
             "ss": true,
             "exempted_reason": "na",
             "exempted_start_date": "na",
-            "exempted_end_date": "na"
+            "exempted_end_date": "na",
+            "rank": 4
         },
         {
             "name": "유창우",
             "ss": true,
             "exempted_reason": "na",
             "exempted_start_date": "na",
-            "exempted_end_date": "na"
+            "exempted_end_date": "na",
+            "rank": 2
         },
         {
             "name": "허정현",
             "ss": true,
             "exempted_reason": "휴가",
-            "exempted_start_date": ["2024-02-04", "2024-02-13", "2024-02-28"],
-            "exempted_end_date": ["2024-02-08", "2024-02-23", "2024-03-12"]
+            "exempted_start_date": ["2024-02-13", "2024-02-28"],
+            "exempted_end_date": ["2024-02-23", "2024-03-12"],
+            "rank": 1
         },
         {
             "name": "최선웅",
             "ss": false,
-            "exempted_reason": "외박",
-            "exempted_start_date": ["2024-02-03"],
-            "exempted_end_date": ["2024-02-04"]
+            "exempted_reason": "na",
+            "exempted_start_date": "na",
+            "exempted_end_date": "na",
+            "rank": 6
         },
         {
             "name": "김태언",
             "ss": false,
             "exempted_reason": "5대기",
             "exempted_start_date": ["2024-02-05"],
-            "exempted_end_date": ["2024-02-12"]
+            "exempted_end_date": ["2024-02-12"],
+            "rank": 7
         },
         {
             "name": "민준식",
             "ss": false,
             "exempted_reason": "휴가",
             "exempted_start_date": ["2024-02-13"],
-            "exempted_end_date": ["2024-02-23"]
+            "exempted_end_date": ["2024-02-23"],
+            "rank": 8
         },
         {
             "name": "전성현",
             "ss": false,
+            "exempted_reason": "기타",
+            "exempted_start_date": ["2024-02-13"],
+            "exempted_end_date": ["2024-02-13"],
+            "rank": 3
+        },
+        {
+            "name": "최진영",
+            "ss": false,
             "exempted_reason": "na",
-            "exempted_start_date": ["2024-02-06", "2024-02-08", "2024-02-09"],
-            "exempted_end_date": ["2024-02-06", "2024-02-08", "2024-02-10"]
+            "exempted_start_date": "na",
+            "exempted_end_date": "na",
+            "rank": 11
         }
     ]
 }

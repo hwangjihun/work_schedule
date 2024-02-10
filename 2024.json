@@ -1,77 +1,106 @@
 {
     "2024-02-05": {
-        "isPlanned": true
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-06": {
-        "isPlanned": true
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-07": {
-        "isPlanned": true
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-08": {
-        "isPlanned": true
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-09": {
-        "isPlanned": true
+        "isPlanned": true,
+        "isHoliday": true
     },
     "2024-02-10": {
-        "isPlanned": true
+        "isPlanned": true,
+        "isHoliday": true
     },
     "2024-02-11": {
-        "isPlanned": true
+        "isPlanned": true,
+        "isHoliday": true
     },
     "2024-02-12": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-13": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-14": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-15": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-16": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-17": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": true
     },
     "2024-02-18": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": true
     },
     "2024-02-19": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-20": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-21": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-22": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-23": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-24": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": true
     },
     "2024-02-25": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": true
     },
     "2024-02-26": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-27": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-28": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": false
     },
     "2024-02-29": {
-        "isPlanned": false
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-03-01": {
+        "isPlanned": false,
+        "isHoliday": false
     }
 }

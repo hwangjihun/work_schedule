@@ -70,6 +70,8 @@ def rest_exemption(qualified_worker_count):
 
     return FREE_OF_DUTY
 
+
+
 def find_available_workers(current_schedule_date, calendar):
     previous_date = datetime.strptime(current_schedule_date, '%Y-%m-%d') - timedelta(days=1)
     previous_date = datetime.strftime(previous_date, '%Y-%m-%d')
@@ -80,11 +82,9 @@ def find_available_workers(current_schedule_date, calendar):
     final_available_workers = []
     exempted_workers = default_exemption(current_schedule_date)
     resting_workers = []
-    try:
-        yesterday_data = json.load(open(f"./archive/json/{previous_date}.json"))
-        yesterday_dangjik = list(filter(lambda worker: worker['workTime'] == 6, yesterday_data["members"]))[0]["name"]
-    except:
-        yesterday_dangjik = ""
+
+    yesterday_data = json.load(open(f"./archive/json/{previous_date}.json"))
+    yesterday_dangjik = list(filter(lambda worker: worker['workTime'] == 6, yesterday_data["members"]))[0]["name"]
     
     for worker in workers_data["workers"]:
         if (worker["name"] in exempted_workers or worker["name"] == yesterday_dangjik):
@@ -114,7 +114,7 @@ def workdays_dangjik(available_workers):
             break
         if (soldier in available_workers):
             CURRENT_DANGJIK = soldier
-        visited.append(soldier)
+
     for worker in visited:
         workers.remove(worker)
     with open("workdays_dangjik.json", "w") as outfile: 
@@ -156,6 +156,30 @@ def weekends_dangjik(available_workers):
     ]}
 
     return updated_schedule
+
+
+def dangjik(available_workers):
+    workers_queue = list(json.load(open('workdays_dangjik.json')))
+    last_idx_na = 0
+    non_avail_ppl = []
+    CURRENT_DANGJIK = ""
+    if (len(workers_queue) <= 1):
+        workers_queue.extend(DANGJIK_QUEUE)
+    for i, worker in enumerate(workers_queue):
+        if (worker in available_workers):
+            CURRENT_DANGJIK = worker
+            break
+        if (worker not in available_workers):
+            non_avail_ppl.append(worker)
+            last_idx_na += 1
+    workers_queue = non_avail_ppl + workers_queue[last_idx_na + 1:]
+    print(CURRENT_DANGJIK)
+    with open("workdays_dangjik.json", "w") as outfile: 
+        json.dump(workers_queue, outfile, indent=4, ensure_ascii=False)
+
+dangjik(['변희원', '한철웅', '유창우', '김태언', '전성현', '최진영', "황지훈",
+    "민준식",
+    "최선웅"])
 
 def fill_remaining(current_schedule, available_workers):
     missing_timings = array_diff([i for i in range(1, 7)],  [worker["workTime"] for worker in current_schedule["members"]])

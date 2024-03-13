@@ -4,7 +4,6 @@ import random
 # Things to do
 # Implement a point system for dangjik n  2hours
 WORKERS_LIST = [
-    "유창우"
     "전성현",
     "김동수",
     "한철웅",
@@ -26,8 +25,7 @@ DANGJIK_QUEUE = [
     "최선웅",
     "한철웅",
     "김동수",
-    "전성현",
-    "유창우"
+    "전성현"
 ]
 
 def array_diff(li1, li2):
@@ -107,7 +105,7 @@ def workdays_dangjik(available_workers):
     last_idx_na = 0
     non_avail_ppl = []
     CURRENT_DANGJIK = ""
-    if (len(workers_queue) <= 1):
+    if (len(workers_queue) <= 4):
         workers_queue.extend(DANGJIK_QUEUE)
     for i, worker in enumerate(workers_queue):
         if (worker in available_workers):
@@ -127,7 +125,7 @@ def workdays_dangjik(available_workers):
             "workTime": 6
         }
     ]}
-
+    print(f"TODAY's dangjik {CURRENT_DANGJIK}")
     return updated_schedule
 
 def weekends_dangjik(available_workers):
@@ -135,7 +133,7 @@ def weekends_dangjik(available_workers):
     last_idx_na = 0
     non_avail_ppl = []
     CURRENT_DANGJIK = ""
-    if (len(workers_queue) <= 1):
+    if (len(workers_queue) <= 4):
         workers_queue.extend(DANGJIK_QUEUE)
     for i, worker in enumerate(workers_queue):
         if (worker in available_workers):
@@ -155,7 +153,7 @@ def weekends_dangjik(available_workers):
             "workTime": 6
         }
     ]}
-
+    print(f"TODAY's dangjik {CURRENT_DANGJIK}")
     return updated_schedule
 
 def fill_remaining(current_schedule, available_workers):

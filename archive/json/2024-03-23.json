@@ -1,11 +1,7 @@
 {
     "members": [
         {
-            "name": "최진영",
-            "workTime": 1
-        },
-        {
-            "name": "변희원",
+            "name": "한철웅",
             "workTime": 3
         },
         {
@@ -13,11 +9,7 @@
             "workTime": 4
         },
         {
-            "name": "황지훈",
-            "workTime": 5
-        },
-        {
-            "name": "한철웅",
+            "name": "변희원",
             "workTime": 6
         }
     ]

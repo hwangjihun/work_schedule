@@ -4,8 +4,8 @@
             "name": "황지훈",
             "ss": true,
             "exempted_reason": "na",
-            "exempted_start_date": ["2024-03-16"],
-            "exempted_end_date": ["2024-03-17"],
+            "exempted_start_date": ["2024-03-16", "2024-03-18"],
+            "exempted_end_date": ["2024-03-17", "2024-03-25"],
             "rank": 10
         },
         {
@@ -52,8 +52,8 @@
             "name": "김태언",
             "ss": false,
             "exempted_reason": "휴가",
-            "exempted_start_date": ["2024-03-09", "2024-03-18"],
-            "exempted_end_date": ["2024-03-10", "2024-03-29"],
+            "exempted_start_date": ["2024-03-18"],
+            "exempted_end_date": ["2024-03-29"],
             "rank": 7
         },
         {

@@ -4,6 +4,7 @@ import random
 # Things to do
 # Implement a point system for dangjik n  2hours
 WORKERS_LIST = [
+    "유창우"
     "전성현",
     "김동수",
     "한철웅",
@@ -102,63 +103,6 @@ def find_available_workers(current_schedule_date, calendar):
     return final_available_workers
 
 def workdays_dangjik(available_workers):
-
-    CURRENT_DANGJIK = ""
-    visited = []
-    workers = list(json.load(open('workdays_dangjik.json')))
-    
-    if (len(workers) <= 1):
-        workers.extend(DANGJIK_QUEUE)
-    for soldier in workers:
-        if (CURRENT_DANGJIK != ""):
-            break
-        if (soldier in available_workers):
-            CURRENT_DANGJIK = soldier
-
-    for worker in visited:
-        workers.remove(worker)
-    with open("workdays_dangjik.json", "w") as outfile: 
-        json.dump(workers, outfile, indent=4, ensure_ascii=False)
-
-    updated_schedule = {"members": [
-        {
-            "name": CURRENT_DANGJIK,
-            "workTime": 6
-        }
-    ]}
-
-    return updated_schedule
-
-def weekends_dangjik(available_workers):
-
-    CURRENT_DANGJIK = ""
-    visited = []
-    workers = list(json.load(open('weekends_dangjik.json')))
-    
-    if (len(workers) <= 1):
-        workers.extend(DANGJIK_QUEUE)
-    for soldier in workers:
-        if (CURRENT_DANGJIK != ""):
-            break
-        if (soldier in available_workers):
-            CURRENT_DANGJIK = soldier
-        visited.append(soldier)
-    for worker in visited:
-        workers.remove(worker)
-    with open("weekends_dangjik.json", "w") as outfile: 
-        json.dump(workers, outfile, indent=4, ensure_ascii=False)
-
-    updated_schedule = {"members": [
-        {
-            "name": CURRENT_DANGJIK,
-            "workTime": 6
-        }
-    ]}
-
-    return updated_schedule
-
-
-def dangjik(available_workers):
     workers_queue = list(json.load(open('workdays_dangjik.json')))
     last_idx_na = 0
     non_avail_ppl = []
@@ -173,13 +117,46 @@ def dangjik(available_workers):
             non_avail_ppl.append(worker)
             last_idx_na += 1
     workers_queue = non_avail_ppl + workers_queue[last_idx_na + 1:]
-    print(CURRENT_DANGJIK)
+    
     with open("workdays_dangjik.json", "w") as outfile: 
         json.dump(workers_queue, outfile, indent=4, ensure_ascii=False)
+    
+    updated_schedule = {"members": [
+        {
+            "name": CURRENT_DANGJIK,
+            "workTime": 6
+        }
+    ]}
 
-dangjik(['변희원', '한철웅', '유창우', '김태언', '전성현', '최진영', "황지훈",
-    "민준식",
-    "최선웅"])
+    return updated_schedule
+
+def weekends_dangjik(available_workers):
+    workers_queue = list(json.load(open('weekends_dangjik.json')))
+    last_idx_na = 0
+    non_avail_ppl = []
+    CURRENT_DANGJIK = ""
+    if (len(workers_queue) <= 1):
+        workers_queue.extend(DANGJIK_QUEUE)
+    for i, worker in enumerate(workers_queue):
+        if (worker in available_workers):
+            CURRENT_DANGJIK = worker
+            break
+        if (worker not in available_workers):
+            non_avail_ppl.append(worker)
+            last_idx_na += 1
+    workers_queue = non_avail_ppl + workers_queue[last_idx_na + 1:]
+    
+    with open("weekends_dangjik.json", "w") as outfile: 
+        json.dump(workers_queue, outfile, indent=4, ensure_ascii=False)
+    
+    updated_schedule = {"members": [
+        {
+            "name": CURRENT_DANGJIK,
+            "workTime": 6
+        }
+    ]}
+
+    return updated_schedule
 
 def fill_remaining(current_schedule, available_workers):
     missing_timings = array_diff([i for i in range(1, 7)],  [worker["workTime"] for worker in current_schedule["members"]])

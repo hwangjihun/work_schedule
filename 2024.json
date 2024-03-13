@@ -56,71 +56,75 @@
         "isHoliday": false
     },
     "2024-03-15": {
-        "isPlanned": false,
-        "isHoliday": false
+        "isPlanned": true,
+        "isHoliday": true
     },
     "2024-03-16": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": true
     },
     "2024-03-17": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": true
     },
     "2024-03-18": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": false
     },
     "2024-03-19": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": false
     },
     "2024-03-20": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": false
     },
     "2024-03-21": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": false
     },
     "2024-03-22": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": false
     },
     "2024-03-23": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": true
     },
     "2024-03-24": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": true
     },
     "2024-03-25": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": false
     },
     "2024-03-26": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": false
     },
     "2024-03-27": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": false
     },
     "2024-03-28": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": false
     },
     "2024-03-29": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": false
     },
     "2024-03-30": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": true
     },
     "2024-03-31": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": true
+    },
+    "2024-04-01": {
+        "isPlanned": false,
+        "isHoliday": false
     }
 }

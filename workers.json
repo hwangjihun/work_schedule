@@ -68,8 +68,8 @@
             "name": "최진영",
             "ss": false,
             "exempted_reason": "na",
-            "exempted_start_date": ["2024-04-23"],
-            "exempted_end_date": ["2024-05-03"],
+            "exempted_start_date": ["2024-04-08", "2024-04-23"],
+            "exempted_end_date": ["2024-04-15", "2024-05-03"],
             "rank": 11
         }
     ]

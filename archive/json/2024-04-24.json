@@ -1,7 +1,7 @@
 {
     "members": [
         {
-            "name": "변희원",
+            "name": "민준식",
             "workTime": 1
         },
         {
@@ -9,7 +9,7 @@
             "workTime": 2
         },
         {
-            "name": "전성현",
+            "name": "김태언",
             "workTime": 3
         },
         {
@@ -21,7 +21,7 @@
             "workTime": 5
         },
         {
-            "name": "김태언",
+            "name": "변희원",
             "workTime": 6
         }
     ]

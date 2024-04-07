@@ -19,9 +19,9 @@
         {
             "name": "한철웅", 
             "ss": true,
-            "exempted_reason": "na",
-            "exempted_start_date": "na",
-            "exempted_end_date": "na",
+            "exempted_reason": "휴가",
+            "exempted_start_date":  ["2024-04-24"],
+            "exempted_end_date":  ["2024-05-03"],
             "rank": 5
         },
         {
@@ -60,8 +60,8 @@
             "name": "전성현",
             "ss": false,
             "exempted_reason": "휴가",
-            "exempted_start_date": "na",
-            "exempted_end_date": "na",
+            "exempted_start_date":  ["2024-04-26"],
+            "exempted_end_date":  ["2024-04-27"],
             "rank": 3
         },
         {

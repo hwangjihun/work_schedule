@@ -1,126 +1,134 @@
 {
-    "2024-04-01": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-02": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-03": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-04": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-05": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-06": {
-        "isPlanned": true,
-        "isHoliday": true
-    },
-    "2024-04-07": {
-        "isPlanned": true,
-        "isHoliday": true
-    },
-    "2024-04-08": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-09": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-10": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-11": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-12": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-13": {
-        "isPlanned": true,
-        "isHoliday": true
-    },
-    "2024-04-14": {
-        "isPlanned": true,
-        "isHoliday": true
-    },
-    "2024-04-15": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-16": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-17": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-18": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-19": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-20": {
-        "isPlanned": true,
-        "isHoliday": true
-    },
-    "2024-04-21": {
-        "isPlanned": true,
-        "isHoliday": true
-    },
-    "2024-04-22": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-23": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-24": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-25": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-26": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
-    "2024-04-27": {
-        "isPlanned": true,
-        "isHoliday": true
-    },
-    "2024-04-28": {
-        "isPlanned": true,
-        "isHoliday": true
-    },
-    "2024-04-29": {
-        "isPlanned": true,
-        "isHoliday": false
-    },
     "2024-04-30": {
         "isPlanned": true,
         "isHoliday": false
     },
     "2024-05-01": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": false
+    },
+    "2024-05-02": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-03": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-04": {
+        "isPlanned": true,
+        "isHoliday": true
+    },
+    "2024-05-05": {
+        "isPlanned": true,
+        "isHoliday": true
+    },
+    "2024-05-06": {
+        "isPlanned": true,
+        "isHoliday": true
+    },
+    "2024-05-07": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-08": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-09": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-10": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-11": {
+        "isPlanned": true,
+        "isHoliday": true
+    },
+    "2024-05-12": {
+        "isPlanned": true,
+        "isHoliday": true
+    },
+    "2024-05-13": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-14": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-15": {
+        "isPlanned": true,
+        "isHoliday": true
+    },
+    "2024-05-16": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-17": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-18": {
+        "isPlanned": true,
+        "isHoliday": true
+    },
+    "2024-05-19": {
+        "isPlanned": true,
+        "isHoliday": true
+    },
+    "2024-05-20": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-21": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-22": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-23": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-24": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-25": {
+        "isPlanned": true,
+        "isHoliday": true
+    },
+    "2024-05-26": {
+        "isPlanned": true,
+        "isHoliday": true
+    },
+    "2024-05-27": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-28": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-29": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-30": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-05-31": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-06-01": {
+        "isPlanned": false,
+        "isHoliday": true
     }
 }

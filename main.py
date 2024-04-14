@@ -43,3 +43,16 @@ calendar[current_date]['isPlanned'] = True
 
 with open(f"./2024.json", 'w') as json_file:
     json.dump(calendar, json_file, indent=4)
+
+rest_json = json.load(open("./rest.json"))
+weekdays_dangjik_json = json.load(open("./workdays_dangjik.json"))
+weekends_dangjik_json = json.load(open("./weekends_dangjik.json"))
+
+with open(f"./archive/rest/{current_date}.json", 'w') as json_file:
+    json.dump(rest_json, json_file, indent=4, ensure_ascii=False)
+
+with open(f"./archive/weekdays_dangjik/{current_date}.json", 'w') as json_file:
+    json.dump(weekdays_dangjik_json, json_file, indent=4, ensure_ascii=False)
+
+with open(f"./archive/weekends_dangjik/{current_date}.json", 'w') as json_file:
+    json.dump(weekends_dangjik_json, json_file, indent=4, ensure_ascii=False)

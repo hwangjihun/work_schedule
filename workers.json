@@ -4,8 +4,8 @@
             "name": "황지훈",
             "ss": true,
             "exempted_reason": "5대기, 외박",
-            "exempted_start_date": ["2024-05-06", "2025-05-26"],
-            "exempted_end_date": ["2024-05-13", "2025-05-27"],
+            "exempted_start_date": ["2024-05-06", "2024-05-25"],
+            "exempted_end_date": ["2024-05-13", "2024-05-26"],
             "rank": 10
         },
         {
@@ -68,8 +68,8 @@
             "name": "최진영",
             "ss": false,
             "exempted_reason": "na",
-            "exempted_start_date": ["2024-04-25", "2024-04-08", "2024-04-23"],
-            "exempted_end_date": ["2024-04-26", "2024-04-14", "2024-05-03"],
+            "exempted_start_date": ["2024-05-25"],
+            "exempted_end_date": ["2024-05-26"],
             "rank": 11
         }
     ]

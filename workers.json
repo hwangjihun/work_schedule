@@ -3,9 +3,9 @@
         {
             "name": "황지훈",
             "ss": true,
-            "exempted_reason": "na",
-            "exempted_start_date": ["2024-04-13"],
-            "exempted_end_date": ["2024-04-13"],
+            "exempted_reason": "5대기, 외박",
+            "exempted_start_date": ["2024-05-06", "2025-05-26"],
+            "exempted_end_date": ["2024-05-13", "2025-05-27"],
             "rank": 10
         },
         {
@@ -36,40 +36,40 @@
             "name": "최선웅",
             "ss": false,
             "exempted_reason": "외박",
-            "exempted_start_date": ["2024-05-18"],
-            "exempted_end_date": ["2024-05-19"],
+            "exempted_start_date": ["2024-05-13", "2024-05-18"],
+            "exempted_end_date": ["2024-05-17", "2024-05-19"],
             "rank": 6
         },
         {
             "name": "김태언",
             "ss": false,
             "exempted_reason": "휴가",
-            "exempted_start_date": "na",
-            "exempted_end_date": "na",
+            "exempted_start_date": ["2024-05-13"],
+            "exempted_end_date": ["2024-05-17"],
             "rank": 7
         },
         {
             "name": "민준식",
             "ss": false,
             "exempted_reason": "휴가",
-            "exempted_start_date": ["2024-05-27"],
-            "exempted_end_date": ["2024-06-05"],
+            "exempted_start_date": ["2024-05-13", "2024-05-27"],
+            "exempted_end_date": ["2024-05-17", "2024-06-05"],
             "rank": 8
         },
         {
             "name": "전성현",
             "ss": false,
             "exempted_reason": "휴가",
-            "exempted_start_date":  ["2024-04-26"],
-            "exempted_end_date":  ["2024-04-27"],
+            "exempted_start_date":  ["2024-05-07", "2024-05-25"],
+            "exempted_end_date":  ["2024-05-10", "2024-05-25"],
             "rank": 3
         },
         {
             "name": "최진영",
             "ss": false,
             "exempted_reason": "na",
-            "exempted_start_date": ["2024-04-08", "2024-04-23"],
-            "exempted_end_date": ["2024-04-14", "2024-05-03"],
+            "exempted_start_date": ["2024-04-25", "2024-04-08", "2024-04-23"],
+            "exempted_end_date": ["2024-04-26", "2024-04-14", "2024-05-03"],
             "rank": 11
         }
     ]

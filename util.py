@@ -4,7 +4,6 @@ import random
 # Things to do
 # Implement a point system for dangjik n  2hours
 WORKERS_LIST = [
-    "전성현",
     "김동수",
     "한철웅",
     "최선웅",
@@ -12,11 +11,13 @@ WORKERS_LIST = [
     "민준식",
     "변희원",
     "황지훈",
-    "최진영"
+    "최진영",
+    "장형택"
 ]
 
 
 DANGJIK_QUEUE = [
+    "장형택",
     "최진영",
     "황지훈",
     "변희원",
@@ -24,8 +25,7 @@ DANGJIK_QUEUE = [
     "김태언",
     "최선웅",
     "한철웅",
-    "김동수",
-    "전성현"
+    "김동수"
 ]
 
 def array_diff(li1, li2):

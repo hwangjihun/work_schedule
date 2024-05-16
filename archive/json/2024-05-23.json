@@ -1,0 +1,28 @@
+{
+    "members": [
+        {
+            "name": "최선웅",
+            "workTime": 1
+        },
+        {
+            "name": "장형택",
+            "workTime": 2
+        },
+        {
+            "name": "변희원",
+            "workTime": 3
+        },
+        {
+            "name": "최진영",
+            "workTime": 4
+        },
+        {
+            "name": "김동수",
+            "workTime": 5
+        },
+        {
+            "name": "김태언",
+            "workTime": 6
+        }
+    ]
+}

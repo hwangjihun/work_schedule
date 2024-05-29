@@ -52,7 +52,7 @@
         {
             "name": "최진영",
             "ss": false,
-            "exempted_reason": "외박",
+            "exempted_reason": "ㅜ",
             "exempted_start_date": ["2024-05-25"],
             "exempted_end_date": ["2024-05-26"]
         },
@@ -61,7 +61,14 @@
             "ss": false,
             "exempted_reason": "휴가",
             "exempted_start_date": ["2024-05-30"],
-            "exempted_end_date": ["2024-06-05"]
+            "exempted_end_date": ["2024-06-07"]
+        },
+        {
+            "name": "김병호",
+            "ss": false,
+            "exempted_reason": "외박, 5대기",
+            "exempted_start_date": ["2024-06-01", "2024-06-03"],
+            "exempted_end_date": ["2024-06-02", "2024-06-10"]
         }
     ]
 }

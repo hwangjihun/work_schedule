@@ -128,7 +128,47 @@
         "isHoliday": false
     },
     "2024-06-01": {
-        "isPlanned": false,
+        "isPlanned": true,
         "isHoliday": true
+    },
+    "2024-06-02": {
+        "isPlanned": true,
+        "isHoliday": true
+    },
+    "2024-06-03": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-06-04": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-06-05": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-06-06": {
+        "isPlanned": true,
+        "isHoliday": true
+    },
+    "2024-06-07": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-06-08": {
+        "isPlanned": true,
+        "isHoliday": true
+    },
+    "2024-06-09": {
+        "isPlanned": true,
+        "isHoliday": true
+    },
+    "2024-06-10": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-06-11": {
+        "isPlanned": false,
+        "isHoliday": false
     }
 }

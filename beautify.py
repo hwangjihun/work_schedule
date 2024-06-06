@@ -10,7 +10,7 @@ time_dict = {
     6: '18:00 ~ 08:00',
 }
 
-for i in range(1, 11):
+for i in range(1, 31):
 
     if (i < 10):
         i = "0" + str(i)

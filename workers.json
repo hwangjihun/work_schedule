@@ -31,9 +31,9 @@
         {
             "name": "최선웅",
             "ss": false,
-            "exempted_reason": "na",
-            "exempted_start_date": "na",
-            "exempted_end_date": "na"
+            "exempted_reason": "휴가",
+            "exempted_start_date": ["2024-06-17"],
+            "exempted_end_date": ["2024-06-21"]
         },
         {
             "name": "김태언",
@@ -45,16 +45,16 @@
         {
             "name": "민준식",
             "ss": false,
-            "exempted_reason":"na",
-            "exempted_start_date": "na",
-            "exempted_end_date": "na"
+            "exempted_reason":"휴가",
+            "exempted_start_date": ["2024-06-25"],
+            "exempted_end_date": ["2024-06-27"]
         },
         {
             "name": "최진영",
             "ss": false,
-            "exempted_reason": "na",
-            "exempted_start_date": "na",
-            "exempted_end_date": "na"
+            "exempted_reason": "주망외출",
+            "exempted_start_date": ["2024-06-30"],
+            "exempted_end_date": ["2024-06-30"]
         },
         {
             "name": "장형택",
@@ -73,6 +73,20 @@
         {
             "name": "이융",
             "ss": false,
+            "exempted_reason": "na",
+            "exempted_start_date": "na",
+            "exempted_end_date": "na"
+        }, 
+        {
+            "name": "현재원",
+            "ss": true,
+            "exempted_reason": "na",
+            "exempted_start_date": "na",
+            "exempted_end_date": "na"
+        },
+        {
+            "name": "이예준",
+            "ss": true,
             "exempted_reason": "na",
             "exempted_start_date": "na",
             "exempted_end_date": "na"

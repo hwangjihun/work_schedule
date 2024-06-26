@@ -10,16 +10,16 @@ time_dict = {
     6: '18:00 ~ 08:00',
 }
 
-for i in range(16, 31):
+for i in range(1, 31):
 
     if (i < 10):
         i = "0" + str(i)
-    with open(f'./archive/json/2024-06-{i}.json') as json_file:
+    with open(f'./archive/json/2024-07-{i}.json') as json_file:
         data = json.load(json_file)
         print(data)
     workers_data = data['members']
     
-    data_file = open(f'./archive/csv/2024-06-{i}.csv', 'w')
+    data_file = open(f'./archive/csv/2024-07-{i}.csv', 'w')
     csv_writer = csv.writer(data_file)
     
     # Counter variable used for writing 

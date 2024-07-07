@@ -124,6 +124,10 @@
         "isHoliday": false
     },
     "2024-07-31": {
+        "isPlanned": true,
+        "isHoliday": false
+    },
+    "2024-08-01": {
         "isPlanned": false,
         "isHoliday": false
     }

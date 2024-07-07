@@ -1,11 +1,11 @@
 {
     "members": [
         {
-            "name": "한철웅",
+            "name": "장형택",
             "workTime": 1
         },
         {
-            "name": "장형택",
+            "name": "이융",
             "workTime": 2
         },
         {
@@ -13,15 +13,15 @@
             "workTime": 3
         },
         {
-            "name": "변희원",
+            "name": "최선웅",
             "workTime": 4
         },
         {
-            "name": "민준식",
+            "name": "최진영",
             "workTime": 5
         },
         {
-            "name": "김병호",
+            "name": "한철웅",
             "workTime": 6
         }
     ]
